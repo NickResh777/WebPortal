@@ -1,0 +1,8 @@
+C:\Users\Valeriy\Documents\GitHub\DatingHeaven\DatingHeaven\DatingHeaven.Core\bin\Debug\DatingHeaven.Core.dll
+C:\Users\Valeriy\Documents\GitHub\DatingHeaven\DatingHeaven\DatingHeaven.Core\bin\Debug\DatingHeaven.Core.pdb
+C:\Users\Valeriy\Documents\GitHub\DatingHeaven\DatingHeaven\DatingHeaven.Core\bin\Debug\Iesi.Collections.dll
+C:\Users\Valeriy\Documents\GitHub\DatingHeaven\DatingHeaven\DatingHeaven.Core\bin\Debug\NHibernate.dll
+C:\Users\Valeriy\Documents\GitHub\DatingHeaven\DatingHeaven\DatingHeaven.Core\bin\Debug\Iesi.Collections.xml
+C:\Users\Valeriy\Documents\GitHub\DatingHeaven\DatingHeaven\DatingHeaven.Core\bin\Debug\NHibernate.xml
+C:\Users\Valeriy\Documents\GitHub\DatingHeaven\DatingHeaven\DatingHeaven.Core\obj\Debug\DatingHeaven.Core.dll
+C:\Users\Valeriy\Documents\GitHub\DatingHeaven\DatingHeaven\DatingHeaven.Core\obj\Debug\DatingHeaven.Core.pdb

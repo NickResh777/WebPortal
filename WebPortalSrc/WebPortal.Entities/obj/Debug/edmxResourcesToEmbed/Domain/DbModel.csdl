@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+  <EntityContainer Name="DbModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BaseEntitySet" EntityType="DbModel.BaseEntity" />
+    <EntitySet Name="Members" EntityType="DbModel.Member" />
+    <AssociationSet Name="MemberBaseEntity" Association="DbModel.MemberBaseEntity">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="BaseEntity" EntitySet="BaseEntitySet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BaseEntity" Abstract="true">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="false" />
+    <Property Type="Int32" Name="ModifiedOn" Nullable="false" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="DbModel.MemberBaseEntity" FromRole="BaseEntity" ToRole="Member" />
+  </EntityType>
+  <EntityType Name="Message" BaseType="DbModel.BaseEntity">
+    <Property Type="String" Name="Body" Nullable="false" />
+    <Property Type="Int32" Name="SenderId" Nullable="false" />
+    <Property Type="Int32" Name="ReceiverId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="String" Name="Login" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" />
+    <Property Type="String" Name="LastName" Nullable="false" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <NavigationProperty Name="BaseEntity" Relationship="DbModel.MemberBaseEntity" FromRole="Member" ToRole="BaseEntity" />
+  </EntityType>
+  <Association Name="MemberBaseEntity">
+    <End Type="DbModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="DbModel.BaseEntity" Role="BaseEntity" Multiplicity="1" />
+  </Association>
+</Schema>

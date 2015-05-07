@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{36DE29DF-ECC4-4C8B-BDCD-A679DABFD2FE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebPortal.DataAccessLayer</RootNamespace>
+    <AssemblyName>WebPortal.DataAccessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DalNInjectModule.cs" />
+    <Compile Include="WebPortalDbContext.cs" />
+    <Compile Include="DbContextProvider.cs" />
+    <Compile Include="EntityAdapters\BaseBusinessEntityWidthIdAdapter.cs" />
+    <Compile Include="EntityAdapters\EntityAdapter.cs" />
+    <Compile Include="EntityAdapters\BaseLookupEntityAdapter.cs" />
+    <Compile Include="EntityAdapters\EntityEnumerator.cs" />
+    <Compile Include="EntityAdapters\EntityQueryable.cs" />
+    <Compile Include="EntityAdapters\EntityQueryProvider.cs" />
+    <Compile Include="FluentSyntax\IFluentSyntax.cs" />
+    <Compile Include="IDbContext.cs" />
+    <Compile Include="IDbContextProvider.cs" />
+    <Compile Include="IEntityAdapter.cs" />
+    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\DeleteEntitySqlGenerator.cs" />
+    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\Comparison.cs" />
+    <Compile Include="Infrastructure\WhereCondition.cs" />
+    <Compile Include="Infrastructure\IWhereConditionRoot.cs" />
+    <Compile Include="Infrastructure\WhereConditionsGroup.cs" />
+    <Compile Include="IEntityPropertySelectionAnalyzer.cs" />
+    <Compile Include="IRepositoryLogger.cs" />
+    <Compile Include="Infrastructure\EntityOperations\EntityContextProvider.cs" />
+    <Compile Include="Infrastructure\EntityOperations\EntityOperationsProviderConfig.cs" />
+    <Compile Include="IEntityContextProvider.cs" />
+    <Compile Include="Infrastructure\EntityOperations\EntityInfoResolver.cs" />
+    <Compile Include="Infrastructure\EntityOperations\IEntityInfoResolver.cs" />
+    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\EntitySqlGenerator.cs" />
+    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\IEntitySqlGeneratorsProvider.cs" />
+    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\SqlGenerator.cs" />
+    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\SqlGeneratorConfig.cs" />
+    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\EntitySqlGeneratorsProvider.cs" />
+    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\UpdateEntitySqlGenerator.cs" />
+    <Compile Include="Infrastructure\EntityOperations\UpdatePropertySqlQueryGenerator.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="LogicalOperation.cs" />
+    <Compile Include="Mapping\AuthInfoMap.cs" />
+    <Compile Include="Mapping\BaseBusinessEntityWithIdMap.cs" />
+    <Compile Include="Mapping\BaseMap.cs" />
+    <Compile Include="Mapping\Geo\CityMap.cs" />
+    <Compile Include="Mapping\Geo\CountryMap.cs" />
+    <Compile Include="Mapping\Geo\RegionStateMap.cs" />
+    <Compile Include="Mapping\HotListEntryMap.cs" />
+    <Compile Include="Mapping\MemberMap.cs" />
+    <Compile Include="Mapping\MessageMap.cs" />
+    <Compile Include="Mapping\ProfileAttributeMap.cs" />
+    <Compile Include="Mapping\ProfileAttributeValueMap.cs" />
+    <Compile Include="Mapping\ProfileMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\EfBaseRepository.cs" />
+    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\SelectEntitySqlGenerator.cs" />
+    <Compile Include="FluentSyntax\FluentSyntaxForEntityProperty.cs" />
+    <Compile Include="EntityPropertySelectionAnalyzer.cs" />
+    <Compile Include="Repositories\EfSingleIdRepository.cs" />
+    <Compile Include="Repositories\HotListEntriesRepository.cs" />
+    <Compile Include="RepositoryConfig.cs" />
+    <Compile Include="SqlInjectedValueFormatter.cs" />
+    <Compile Include="TypesHelper.cs" />
+    <Compile Include="FluentSyntax\FluentSyntaxForWhereConditions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebPortal.Entities\WebPortal.Entities.csproj">
+      <Project>{B663A26A-A35B-41D1-953E-8CDD92872EAE}</Project>
+      <Name>WebPortal.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
