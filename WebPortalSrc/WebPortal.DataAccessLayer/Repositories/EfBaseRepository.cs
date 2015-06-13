@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
 using WebPortal.DataAccessLayer.FluentSyntax;
 using WebPortal.DataAccessLayer.Infrastructure;
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations;
@@ -15,7 +17,7 @@ namespace WebPortal.DataAccessLayer.Repositories {
         private readonly IEntitySqlGeneratorsProvider     _sqlGeneratorsProvider;
         private readonly IEntityPropertySelectionAnalyzer _propertySelectionAnalyzer;
         protected readonly IDbContextProvider             dbContextProvider;
-        protected        IDbContext                       externalDbContext;
+        protected IDbContext _dbContext;
 
         protected EfBaseRepository(IEntitySqlGeneratorsProvider sqlGeneratorsFactory, 
                             IEntityPropertySelectionAnalyzer propertySelectionAnalyzer, 
@@ -28,68 +30,26 @@ namespace WebPortal.DataAccessLayer.Repositories {
         }
 
         public T GetById(object entityKey){
-            T result = null;
+            object[] keys = (entityKey is object[])
+                ? (object[]) entityKey
+                : new[] { entityKey };
 
-            if (externalDbContext != null){
-                result = Invoke_GetById(entityKey, externalDbContext);
-            } else{
-                using (var dbContext = dbContextProvider.CreateContext()){
-                    result = Invoke_GetById(entityKey, dbContext);
-                }
+            try {
+                  T foundEntity = _dbContext.Set<T>().Find(keys);
+                  return foundEntity;
+            }catch (Exception ex){
+
+                throw;
             }
-           
-
-            return result;
         }
   
         public IList<T> GetAll(){
-            IList<T> result = null;
-
-            if (externalDbContext != null){
-                // get all entities using the external DbContext 
-                 result = Invoke_GetAll(externalDbContext);
-            } else{
-               using (var dbContext = dbContextProvider.CreateContext()){
-                 // get all entities using a new DbContext
-                 result = Invoke_GetAll(dbContext);
-               }
-            }
-
-            return result;
+            var queryGetAll = from ent in _dbContext.Set<T>()
+                              select ent;
+            return queryGetAll.ToList();
         }
 
-        private IList<T> Invoke_GetAll(IDbContext dbContext){
-            IList<T> entitiesList = null;
-
-            var query = from entity in dbContext.Set<T>().AsNoTracking()
-                        select entity;
-            try{
-                entitiesList = query.ToList();
-            } catch (Exception ex){
-                throw;
-            }
-
-            return entitiesList;
-        }
-
-        private T Invoke_GetById(object entityKey, IDbContext dbContext){
-            T entity = null;
-            object[] keys = (entityKey is object[])
-                ? (object[]) entityKey: 
-                   new[]{ entityKey };
-
-            try{
-                entity = dbContext.Set<T>().Find(keys);
-            } catch (Exception ex){
-
-                throw;
-            }
-
-            return entity;
-        }
-
-     
-
+      
         public IList<T> GetWhere(Expression<Func<T, object>> propertySelector, object propertyValue){
             // validate the current selector
             _propertySelectionAnalyzer.ValidateSelector<T>(propertySelector);
@@ -292,13 +252,9 @@ namespace WebPortal.DataAccessLayer.Repositories {
       
 
         public IQueryable<T> Table {
-            get{
-                if (externalDbContext == null){
-                    const string errorMsg = "Context is not defined for this repostory.";
-                    throw new InvalidOperationException(errorMsg);
-                }
-
-                return externalDbContext.Set<T>();
+            get
+            {
+                return _dbContext.Set<T>();
             }
         }
 
@@ -307,14 +263,7 @@ namespace WebPortal.DataAccessLayer.Repositories {
 
         public abstract T GetByIdInclude(object entityKey, params Expression<Func<T, object>>[] includedProperties);
 
-        public void SetContext(IDbContext dbContext) {
-            if (dbContext == null){
-                throw new NullReferenceException("dbContext");
-            }
-
-            externalDbContext = dbContext;
-        }
-
+     
 
         protected bool HasAnyIncludedProperty(params Expression<Func<T, object>>[] includedProperties){
             return (includedProperties != null) && 

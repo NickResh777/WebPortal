@@ -42,3 +42,4 @@ C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\BaseTests\
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\BaseTests\obj\Debug\BaseTests.csprojResolveAssemblyReference.cache
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\BaseTests\obj\Debug\BaseTests.dll
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\BaseTests\obj\Debug\BaseTests.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\obj\Debug\BaseTests.csprojResolveAssemblyReference.cache

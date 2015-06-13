@@ -10,10 +10,7 @@ using WebPortal.Entities;
 
 namespace WebPortal.DataAccessLayer {
     public interface IRepository<T> where T: BaseEntity{
-        /// <summary>
-        /// Set an existing context
-        /// </summary>
-        void SetContext(IDbContext dbContext);
+        
 
         /// <summary>
         /// Get entity by keys

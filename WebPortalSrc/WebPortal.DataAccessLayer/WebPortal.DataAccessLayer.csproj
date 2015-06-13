@@ -53,12 +53,6 @@
     <Compile Include="DalNInjectModule.cs" />
     <Compile Include="WebPortalDbContext.cs" />
     <Compile Include="DbContextProvider.cs" />
-    <Compile Include="EntityAdapters\BaseBusinessEntityWidthIdAdapter.cs" />
-    <Compile Include="EntityAdapters\EntityAdapter.cs" />
-    <Compile Include="EntityAdapters\BaseLookupEntityAdapter.cs" />
-    <Compile Include="EntityAdapters\EntityEnumerator.cs" />
-    <Compile Include="EntityAdapters\EntityQueryable.cs" />
-    <Compile Include="EntityAdapters\EntityQueryProvider.cs" />
     <Compile Include="FluentSyntax\IFluentSyntax.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IDbContextProvider.cs" />
@@ -69,7 +63,6 @@
     <Compile Include="Infrastructure\IWhereConditionRoot.cs" />
     <Compile Include="Infrastructure\WhereConditionsGroup.cs" />
     <Compile Include="IEntityPropertySelectionAnalyzer.cs" />
-    <Compile Include="IRepositoryLogger.cs" />
     <Compile Include="Infrastructure\EntityOperations\EntityContextProvider.cs" />
     <Compile Include="Infrastructure\EntityOperations\EntityOperationsProviderConfig.cs" />
     <Compile Include="IEntityContextProvider.cs" />

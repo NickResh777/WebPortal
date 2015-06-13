@@ -59,7 +59,10 @@ namespace WebPortal.DataAccessLayer.Repositories {
             return result;
         }
 
-        public override IList<T> GetWhereInclude(Expression<Func<T, object>> propertySelector, object propertyValue, params Expression<Func<T, object>>[] includeProperties) {
+        public override IList<T> GetWhereInclude(
+            Expression<Func<T, object>> propertySelector, 
+            object propertyValue, 
+            params Expression<Func<T, object>>[] includeProperties) {
             if (externalDbContext != null){
                 
             } else{

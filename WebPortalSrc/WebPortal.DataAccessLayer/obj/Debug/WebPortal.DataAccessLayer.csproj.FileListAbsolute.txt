@@ -26,3 +26,17 @@ C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.DataAccessLayer\obj\Debug\WebPortal.DataAccessLayer.csprojResolveAssemblyReference.cache
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.DataAccessLayer\obj\Debug\WebPortal.DataAccessLayer.dll
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.DataAccessLayer\obj\Debug\WebPortal.DataAccessLayer.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\WebPortal.DataAccessLayer.dll.config
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\WebPortal.DataAccessLayer.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\WebPortal.DataAccessLayer.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\EntityFramework.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\Ninject.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\WebPortal.Entities.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\WebPortal.Entities.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\EntityFramework.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\bin\Debug\Ninject.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\obj\Debug\WebPortal.DataAccessLayer.csprojResolveAssemblyReference.cache
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\obj\Debug\WebPortal.DataAccessLayer.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.DataAccessLayer\obj\Debug\WebPortal.DataAccessLayer.pdb

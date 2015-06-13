@@ -20,3 +20,15 @@ C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.Entities\bin\Debug\Ninject.xml
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.Entities\obj\Debug\WebPortal.Entities.dll
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.Entities\obj\Debug\WebPortal.Entities.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\WebPortal.Entities.dll.config
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\WebPortal.Entities.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\WebPortal.Entities.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\EntityFramework.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\Ninject.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\EntityFramework.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\Ninject.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\obj\Debug\WebPortal.Entities.csprojResolveAssemblyReference.cache
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\obj\Debug\WebPortal.Entities.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\obj\Debug\WebPortal.Entities.pdb
