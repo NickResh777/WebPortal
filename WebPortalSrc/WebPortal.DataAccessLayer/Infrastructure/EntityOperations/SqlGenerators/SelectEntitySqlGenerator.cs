@@ -10,8 +10,7 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
 
         private List<string> _entityProperties; 
 
-        public SelectEntitySqlGenerator(SqlGeneratorConfig config) : 
-            base(config){
+        public SelectEntitySqlGenerator() {
             // empty constructor
         }
 
@@ -26,14 +25,14 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
 
 
         /// <summary>
-        /// 
+        /// Select all columns from the table? ('*' asterik symbol)
         /// </summary>
         public bool SelectAllColumns{
             get; 
             set; 
         }
 
-
+        public void Initialize(string tableName)
 
         protected override void GenerateSqlClauseInternal(StringBuilder sb){
             // append the 'SELECT' clause

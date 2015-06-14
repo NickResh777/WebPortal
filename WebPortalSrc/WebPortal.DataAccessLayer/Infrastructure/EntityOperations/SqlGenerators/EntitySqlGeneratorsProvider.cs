@@ -32,7 +32,7 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
         }
 
         private object[] BuildParametersRecursive(int conditionIndex, IEnumerable<IWhereConditionRoot> conditionsList){
-            List<object> parametersList = new List<object>();
+            var parametersList = new List<object>();
 
             foreach(var condition in conditionsList){
                 if (condition is WhereCondition){

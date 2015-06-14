@@ -17,12 +17,12 @@ using WebPortal.Entities.Geo;
 
 
 namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
-    public class EntityContextProvider : IEntityContextProvider{
+    public class EntityOperationsProvider : IEntityOperationsProvider{
         private readonly IEntityInfoResolver                     _entityInfoResolver;
         private readonly IDbContext                              _dbContext;
         private readonly IEntitySqlGeneratorsProvider             _sqlGeneratorsFactory;
 
-        public EntityContextProvider(              IEntityInfoResolver   entityInfoResolver,                       
+        public EntityOperationsProvider(              IEntityInfoResolver   entityInfoResolver,                       
                                                             IDbContext   dbContext,
                                             IEntitySqlGeneratorsProvider  sqlGeneratorsFactory){
             _entityInfoResolver = entityInfoResolver;
@@ -186,8 +186,6 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
                 //
                 throw new ArgumentException("Entity Key must be of type: [int, string, EntityKey]");
             }
-
-        
         }
 
         public IEntityInfoResolver EntityInfoResolver {

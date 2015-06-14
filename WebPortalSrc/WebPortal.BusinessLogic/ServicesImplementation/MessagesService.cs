@@ -9,21 +9,21 @@ namespace WebPortal.BusinessLogic.ServicesImplementation {
         private readonly IRepository<Message> _messagesRepo;
 
         public MessageService(IRepository<Message> messagesRepository,
-                               IEntityContextProvider entityContextProvider): 
+                               IEntityOperationsProvider entityContextProvider): 
             base(entityContextProvider){
                    _messagesRepo = messagesRepository;
         }  
 
 
-        public Entities.Message GetMessageById(int messageId){
+        public Message GetMessageById(int messageId){
             return _messagesRepo.GetById(messageId);
         }
 
-        public IList<Entities.Message> GetUnreadMessages(int userId){
+        public IList<Message> GetUnreadMessages(int userId){
             return null;
         }
 
-        public IList<Entities.Message> GetMessages(int userId) {
+        public IList<Message> GetMessages(int userId) {
             throw new NotImplementedException();
         }
 
@@ -31,7 +31,7 @@ namespace WebPortal.BusinessLogic.ServicesImplementation {
             throw new NotImplementedException();
         }
 
-        public void SendMessage(Entities.Message message) {
+        public void SendMessage(Message message) {
             throw new NotImplementedException();
         }
 

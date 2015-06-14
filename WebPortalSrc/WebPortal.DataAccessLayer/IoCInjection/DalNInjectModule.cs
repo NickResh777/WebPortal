@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Ninject.Modules;
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations;
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerators;
 using WebPortal.DataAccessLayer.Repositories;
-using Ninject.Modules;
+using WebPortal.DataAccessLayer.Repositories.PerEntity;
 using WebPortal.Entities;
 
-namespace WebPortal.DataAccessLayer {
+namespace WebPortal.DataAccessLayer.IoCInjection {
     public class DalNInjectModule: NinjectModule {
         public override void Load(){
             // always create a new repository
-            Bind<IRepository<HotListEntry>>().To<HotListEntriesRepository>();
+            Bind<IDbContext>().To<WebPortalDbContext>();
+            Bind(typeof(IRepository<>)).ToProvider(typeof (RepositoryProvider));
+           // Bind<IRepository<HotListEntry>>().To<HotListEntriesRepository>();
             Bind(typeof (IRepository<>)).To(typeof(EfSingleIdRepository<>));
             Bind<IEntitySqlGeneratorsProvider>().To<EntitySqlGeneratorsProvider>();
             Bind<IDbContextProvider>().To<DbContextProvider>();

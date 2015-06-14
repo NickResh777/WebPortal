@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using WebPortal.DataAccessLayer;
+using WebPortal.DataAccessLayer.IoCInjection;
 using WebPortal.Entities;
 using WebPortal.Entities.Members;
 using Ninject;

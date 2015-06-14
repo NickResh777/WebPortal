@@ -5,6 +5,8 @@ using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
+using JetBrains.Annotations;
+using NLog;
 using WebPortal.DataAccessLayer.FluentSyntax;
 using WebPortal.DataAccessLayer.Infrastructure;
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations;
@@ -13,43 +15,64 @@ using WebPortal.Entities;
 
 namespace WebPortal.DataAccessLayer.Repositories {
     public abstract class EfBaseRepository<T>: IRepository<T> where T: BaseEntity{
+        protected Logger Log;
+
         private readonly IEntityInfoResolver              _entityInfoResolver;
         private readonly IEntitySqlGeneratorsProvider     _sqlGeneratorsProvider;
         private readonly IEntityPropertySelectionAnalyzer _propertySelectionAnalyzer;
-        protected readonly IDbContextProvider             dbContextProvider;
-        protected IDbContext _dbContext;
+        private      readonly   IDbContext                   _dbContext;
+        protected    readonly   DbSet<T>                     Set;
 
         protected EfBaseRepository(IEntitySqlGeneratorsProvider sqlGeneratorsFactory, 
-                            IEntityPropertySelectionAnalyzer propertySelectionAnalyzer, 
-                            IDbContextProvider dbContextProviderParameter, 
-                            IEntityInfoResolver entityInfoResolver){
+                                   IEntityPropertySelectionAnalyzer propertySelectionAnalyzer, 
+                                   IEntityInfoResolver entityInfoResolver, 
+                                   IDbContext dbContext){
             _sqlGeneratorsProvider = sqlGeneratorsFactory;
             _propertySelectionAnalyzer = propertySelectionAnalyzer;
-            dbContextProvider = dbContextProviderParameter;
             _entityInfoResolver = entityInfoResolver;
+            _dbContext = dbContext;
+            Set = _dbContext.Set<T>();
+            Log = LogManager.GetLogger(GetType().Name);
         }
 
-        public T GetById(object entityKey){
+        public virtual T GetById(object entityKey, params Expression<Func<T, object>>[] includedProps ){
             object[] keys = (entityKey is object[])
                 ? (object[]) entityKey
                 : new[] { entityKey };
 
             try {
-                  T foundEntity = _dbContext.Set<T>().Find(keys);
+                  T foundEntity = Set.Find(keys);
                   return foundEntity;
             }catch (Exception ex){
-
+                Log.Error(ex, "Failed to get entity by its id: {0}", keys);
                 throw;
             }
         }
   
         public IList<T> GetAll(){
-            var queryGetAll = from ent in _dbContext.Set<T>()
-                              select ent;
-            return queryGetAll.ToList();
+            try{
+                var queryGetAll = from ent in Set
+                                  select ent;
+                return queryGetAll.ToList();
+            } catch (Exception ex){
+                Log.Error(ex, "Failed to get all entities from table");
+                throw;
+            }
         }
 
-      
+        #region === Abstract methods ==
+
+           // Get a signle entity by id with included properties
+           public abstract T GetByIdInclude(object entityKey, params Expression<Func<T, object>>[] includedProperties);
+
+           public abstract IList<T> GetWhereInclude(
+               Expression<Func<T, object>> propertySelector, 
+               object propertyValue,
+               params Expression<Func<T, object>>[] includeProperties);
+
+        #endregion
+
+
         public IList<T> GetWhere(Expression<Func<T, object>> propertySelector, object propertyValue){
             // validate the current selector
             _propertySelectionAnalyzer.ValidateSelector<T>(propertySelector);
@@ -124,60 +147,35 @@ namespace WebPortal.DataAccessLayer.Repositories {
         }
 
         public void Refresh(T entity) {
-            using (var dbContext = dbContextProvider.CreateContext()){
-                dbContext.Set<T>().Attach(entity);
-                dbContext.Entry(entity).State = EntityState.Modified;
-              
-                try{
-                    dbContext.SaveChanges();
-                } catch (Exception ex){
-
-                    throw;
-                }
+            _dbContext.MarkAsChanged(entity);
+            try{
+                _dbContext.SaveChanges();
+            } catch (Exception ex){
+                Log.Error(ex, "Failed to refresh entity: {0}", entity);
+                throw;
             }
         }
 
-        public void Insert(T entity) {
-            if (externalDbContext != null){
-                Invoke_Insert(entity, externalDbContext);
-            } else{
-                using (var dbContext = dbContextProvider.CreateContext()){
-                    Invoke_Insert(entity, dbContext);
-                    try{
-                        dbContext.SaveChanges();
-                    } catch (Exception ex){
-
-                        throw;
-                    }
-                }
+        public void Insert(T entity)
+        {
+            _dbContext.Set<T>().Add(entity);
+            try{
+                _dbContext.SaveChanges();
+            } catch (Exception ex){
+                Log.Error(ex, "Failed to insert new entity: {0}", entity);
+                throw;
             }
         }
-
-        private void Invoke_Insert(T entity, IDbContext dbContext){
-            if (dbContext.Entry(entity).State == EntityState.Detached){
-                dbContext.Set<T>().Add(entity);
-            } else{
-                dbContext.Entry(entity).State = EntityState.Added;
-            }
-        }
-
-
-
 
         public void Delete(T entity) {
-            using (var dbContext = dbContextProvider.CreateContext()){
-
-                // attach entity to the context with UNCHANGED state
-                dbContext.Set<T>().Attach(entity);
-                // mark the entity as DELETED in the context
-                dbContext.Entry(entity).State = EntityState.Deleted;
-
-                try{
-                    dbContext.SaveChanges();
-                } catch (Exception ex){
-                    // handle error here
-                    throw;
-                }
+            _dbContext.MarkAsDeleted(entity);
+            try{
+                _dbContext.SaveChanges();
+            } catch (Exception ex){
+                Log.Error(ex, "Failed to delete entity: type: {0}, id: {1}", 
+                               typeof(T).Name, 
+                               entity.Keys);
+                throw;
             }
         }
 
@@ -189,39 +187,21 @@ namespace WebPortal.DataAccessLayer.Repositories {
 
 
         public int GetCount(){
-            int entitiesCount = 0;
-
-            using (var dbContext = dbContextProvider.CreateContext()){
-                try{
-                    entitiesCount = dbContext.Set<T>().Count();
-                } catch (Exception ex){
-
-                    throw;
-                }
+            try{
+                return Set.Count();
+            } catch (Exception ex){
+                Log.Error(ex, "Failed to get count of entites in the table: {0}", typeof(T).Name);
+                throw;
             }
-
-            return entitiesCount;
         }
 
         public int GetCountWhere(Expression<Func<T, bool>> predicate){
-            int entitiesCount = 0;
-
-            if (externalDbContext != null){
-                entitiesCount = externalDbContext.Set<T>().Count(predicate);
-            } else{
-                using (var dbContext = dbContextProvider.CreateContext()){
-                    try{
-                        // get the count of entities that match the current predicate
-                        entitiesCount = dbContext.Set<T>().Count(predicate);
-                    } catch (Exception ex){
-
-                        throw;
-                    }
-                }
-            }
-
-
-            return entitiesCount;
+            try{
+                return Set.Where(predicate).Count(); /* get count of matched entities after applied predicate */
+            } catch (Exception ex){
+                Log.Error(ex, "Failed to get count for predicate: {0}", predicate.Body);
+                throw;
+            } 
         }
 
 
@@ -239,40 +219,19 @@ namespace WebPortal.DataAccessLayer.Repositories {
             );
         }
 
-
-        public T GetByIdInclude(object entityKey, Expression<Func<T, object>> propertySelector){
-            T entity = null;
-           
-            
-            
-            
-            return entity;
-        }
-
-      
-
         public IQueryable<T> Table {
-            get
-            {
-                return _dbContext.Set<T>();
+            get{
+                return Set;
             }
         }
 
 
-
-
-        public abstract T GetByIdInclude(object entityKey, params Expression<Func<T, object>>[] includedProperties);
-
-     
-
         protected bool HasAnyIncludedProperty(params Expression<Func<T, object>>[] includedProperties){
-            return (includedProperties != null) && 
-                   (includedProperties.Length > 0);
+            // check if 
+            return (includedProperties != null) && (includedProperties.Length > 0);
         }
 
 
-        public abstract IList<T> GetWhereInclude
-            (Expression<Func<T, object>> propertySelector, object propertyValue,
-                params Expression<Func<T, object>>[] includeProperties);
+    
     }
 }

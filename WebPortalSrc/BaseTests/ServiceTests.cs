@@ -7,6 +7,7 @@ using WebPortal.BusinessLogic.Services;
 using WebPortal.DataAccessLayer;
 using Ninject;
 using NUnit.Framework;
+using WebPortal.DataAccessLayer.IoCInjection;
 
 namespace BaseTests {
     [TestFixture]                            

@@ -9,11 +9,7 @@ using WebPortal.Entities;
 namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerators {
     public abstract class EntitySqlGenerator : SqlGenerator{
         private List<IWhereConditionRoot>  _conditionsList = new List<IWhereConditionRoot>();
-        private List<LogicalOperation> _logicalOperationsList = new List<LogicalOperation>(); 
-
-        protected EntitySqlGenerator(SqlGeneratorConfig config) : base(config){
-           
-        }
+        private List<LogicalOperation> _logicalOpsList = new List<LogicalOperation>(); 
 
 
         public string TableName{
@@ -32,10 +28,11 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
 
         public List<LogicalOperation> LogicalOperations{
             get{
-                return _logicalOperationsList;
+                
+                return _logicalOpsList ?? (_logicalOpsList = new List<LogicalOperation>());
             }
             set{
-                _logicalOperationsList = value;
+                _logicalOpsList = value;
             }
         } 
 
@@ -79,14 +76,6 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
         private void GenerateWhereClause(StringBuilder sb){
             // sql: WHERE 
             sb.Append("WHERE ");
-
-            //for (var condIdx = 0; condIdx < WhereConditions.Count; condIdx++){
-            //    var condition = WhereConditions[condIdx];
-            //    WriteCondtion(sb, condition, condIdx);
-            //    if (condIdx < (WhereConditions.Count - 1)){
-            //        sb.Append(" AND ");
-            //    }
-            //}
 
             WriteConditions(sb);
         }

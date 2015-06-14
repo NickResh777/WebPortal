@@ -10,7 +10,7 @@ namespace WebPortal.DataAccessLayer {
     /// Provider that provides the API to process low-level entity data.
     /// EntityContext allows a client to query low level entity data, get entity properties, values 
     /// </summary>
-    public interface IEntityContextProvider{
+    public interface IEntityOperationsProvider{
 
         /// <summary>
         /// Get resolver for entity-specific properties

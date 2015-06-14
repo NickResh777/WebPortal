@@ -9,7 +9,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Data.Entity;
-using WebPortal.DataAccessLayer.EntityAdapters;
 using WebPortal.DataAccessLayer.Infrastructure;
 using WebPortal.DataAccessLayer.Mapping;
 using WebPortal.DataAccessLayer.Mapping.Geo;
@@ -22,7 +21,7 @@ using WebPortal.Entities.Profile;
 namespace WebPortal.DataAccessLayer {
     public class WebPortalDbContext : DbContext, IDbContext{
         public WebPortalDbContext(){
-           // enable the Lazy Loading
+            // enable the Lazy Loading
             Configuration.LazyLoadingEnabled = false;
         }
 
@@ -68,6 +67,26 @@ namespace WebPortal.DataAccessLayer {
             get{
                 return ((IObjectContextAdapter) this).ObjectContext;
             }
+        }
+
+
+        public void MarkAsChanged(object entity)
+        {
+            if (entity == null){
+                throw new NullReferenceException("entity");
+            }
+
+           Entry(entity).State = EntityState.Modified;
+        }
+
+        
+        public void MarkAsDeleted(object entity)
+        {
+            if (entity == null){
+                  throw new NullReferenceException("entity");
+            }
+
+            Entry(entity).State = EntityState.Detached;
         }
     }
 }

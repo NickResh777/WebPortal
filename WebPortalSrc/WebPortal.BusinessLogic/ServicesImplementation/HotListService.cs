@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using AutoMapper;
 using WebPortal.BusinessLogic.Services;
 using WebPortal.DataAccessLayer;
+using WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerators;
 using WebPortal.Entities;
 using WebPortal.Entities.Members;
 
 namespace WebPortal.BusinessLogic.ServicesImplementation {
     class HotListService : BaseService, IHotListService{
         private readonly IRepository<HotListEntry> _repoHotListEntries;
+        private readonly IMemberNotificationService _memberNotifier;
+        
 
-        public HotListService(IRepository<HotListEntry> hotListRepository){
+        public HotListService(IRepository<HotListEntry> hotListRepository,
+                              IMemberNotificationService notoficationService){
             _repoHotListEntries = hotListRepository;
+            _memberNotifier = notoficationService;
         }
 
 
@@ -26,40 +32,47 @@ namespace WebPortal.BusinessLogic.ServicesImplementation {
                 throw ex;
             }
 
-            bool alreadyHasInList = CheckIfAlreadyAdded(memberId, targetMemberId);
-            if (alreadyHasInList){
-                // if we have the 
-                return false;
+            try{
+                bool alreadyHasInList = CheckIfAlreadyAdded(memberId, targetMemberId);
+                if (alreadyHasInList){
+                    // if already added
+                    return false;
+                }
+
+                var newEntry = new HotListEntry{
+                        MemberId = memberId,
+                        TargetMemberId = targetMemberId,
+                        Comment = comment,
+                        ShouldNotify = notify
+                };
+
+
+                _repoHotListEntries.Insert(newEntry);
+
+                if (notify){
+                    // notify the member
+                    _memberNotifier.NotifyAddedToHotList(memberId, targetMemberId, comment);
+                }
+
+                return true;
+            } catch (Exception ex){
+
+                throw;
             }
-
-            var newEntry = new HotListEntry{
-                    MemberId = memberId,
-                    TargetMemberId = targetMemberId,
-                    Comment = comment,
-                    ShouldNotify = notify
-            };
-
-
-            _repoHotListEntries.Insert(newEntry);
-
-            if (notify){
-                    
-            }
-          
-            return true;
         }
 
         public IList<Member> GetHotMembers(int memberId){
-            var membersList = new List<Member>();
-            var hotListEntries = _repoHotListEntries.GetWhereInclude(entry => entry.MemberId, memberId,
-                entry => entry.TargetMember);
+            try{
+                var query = from hlEntry in _repoHotListEntries.GetWhereInclude(
+                                        propertySelector: hle => hle.MemberId,
+                                        propertyValue: memberId,
+                                        includeProperties: hle => hle.TargetMember)
+                            select hlEntry.TargetMember;
 
-            if (hotListEntries != null){
-                // select the TARGET members to the list
-                membersList.AddRange(hotListEntries.Select(entry => entry.TargetMember));
+                return query.ToList();
+            } catch (Exception ex){
+                throw;
             }
-
-            return membersList;
         }
 
         private bool CheckIfAlreadyAdded(int memberId, int targetMemberId){

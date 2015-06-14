@@ -10,18 +10,17 @@ using WebPortal.Entities;
 
 namespace WebPortal.DataAccessLayer {
     public interface IRepository<T> where T: BaseEntity{
-        
+        /// <summary>
+        /// Get entity by key
+        /// </summary>
+        T GetById(object entityKey, params  Expression<Func<T, object>>[] includedProperties);
+
 
         /// <summary>
-        /// Get entity by keys
+        /// Get all entities in the table
         /// </summary>
-        T GetById(object entityKey);
-
-        /// <summary>
-        ///  Get entity along with included properties
-        /// </summary>
-        T GetByIdInclude(object entityKey, params Expression<Func<T, object>>[] includedProperties);
-
+        IList<T> GetAll(params Expression<Func<T, object>>[] incProps );
+      
         /// <summary>
         /// 
         /// </summary>
@@ -32,10 +31,7 @@ namespace WebPortal.DataAccessLayer {
         IList<T> GetWhereInclude(Expression<Func<T, object>> propertySelector, object propertyValue,
                                   params Expression<Func<T, object>>[] includeProperties); 
             
-        /// <summary>
-        /// Get all entities in the table
-        /// </summary>
-        IList<T> GetAll();
+   
 
         /// <summary>
         /// Get total amount of entities stored in the table

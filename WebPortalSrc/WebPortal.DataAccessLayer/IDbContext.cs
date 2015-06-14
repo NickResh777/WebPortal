@@ -30,9 +30,18 @@ namespace WebPortal.DataAccessLayer {
         ObjectContext ObjectContext { get; }
 
         /// <summary>
-        /// 
+        /// Save changes pending in the context
         /// </summary>
-        /// <returns></returns>
         int SaveChanges();
+
+        /// <summary>
+        /// Mark entity as CHANGED in the context
+        /// </summary>
+        void MarkAsChanged(object entity);
+
+        /// <summary>
+        /// Mark entity as DELETED in the context
+        /// </summary>
+        void MarkAsDeleted(object entity);
     }
 }

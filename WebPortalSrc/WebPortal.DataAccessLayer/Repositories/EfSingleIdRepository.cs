@@ -11,67 +11,51 @@ using WebPortal.Entities;
 
 namespace WebPortal.DataAccessLayer.Repositories {
     class EfSingleIdRepository<T> : EfBaseRepository<T> where T: BaseBusinessEntityWithId{
-        public EfSingleIdRepository
-            (IEntitySqlGeneratorsProvider sqlGeneratorsFactory,
-                IEntityPropertySelectionAnalyzer propertySelectionAnalyzer,
-                IDbContextProvider dbContextProvider,
-                IEntityInfoResolver entityInfoResolver) :
-                    base(sqlGeneratorsFactory,
-                        propertySelectionAnalyzer,
-                        dbContextProvider,
-                        entityInfoResolver){
+
+        public EfSingleIdRepository(IEntitySqlGeneratorsProvider sqlGeneratorsFactory,
+            IEntityPropertySelectionAnalyzer propertySelectionAnalyzer,
+            IEntityInfoResolver entityInfoResolver,
+            IDbContext dbContext) :
+                base(sqlGeneratorsFactory,
+                    propertySelectionAnalyzer,
+                    entityInfoResolver,
+                    dbContext){
             
         }
 
-        public override T GetByIdInclude(object entityKey, 
-                                         params Expression<Func<T, object>>[] includedProperties) {
-            if (externalDbContext != null){
-                return Invoke_GetByIdInclude((int) entityKey, externalDbContext, includedProperties);
-            } else{
-                using (var dbContext = dbContextProvider.CreateContext()){
-                    return Invoke_GetByIdInclude((int) entityKey, dbContext, includedProperties);
-                }
+        public override T GetById(object key, params Expression<Func<T, object>>[] includedProps){
+            var entityKey = (int)key;
+            var query = from ent in Set
+                        where (ent.Id == entityKey)
+                        select ent;
+
+            // include properties if needed
+            if (HasAnyIncludedProperty(includedProps)){
+                var incList = includedProps.ToList();
+                incList.ForEach((selector) =>{
+                    // append new entity properties to the query
+                    query = query.Include(selector);
+                });
             }
-        }
 
-        private T Invoke_GetByIdInclude(int entityId, 
-            IDbContext dbContext,
-            params Expression<Func<T, object>>[] includedProperties){
-
-            T result = default (T);
-            try {
-                    var query = from ent in dbContext.Set<T>().AsNoTracking()
-                                where (ent.Id == entityId)
-                                select ent;
-
-                    if (HasAnyIncludedProperty(includedProperties)){
-                        query = includedProperties.Aggregate(query, 
-                            (current, propertySelector) => current.Include(propertySelector));
-                    }
-
-            
-               result =  query.FirstOrDefault();
+            try{
+                return query.FirstOrDefault();
             } catch (Exception ex){
-
+                Log.Error(ex, "Failed to get");
                 throw;
             }
-
-            return result;
         }
 
-        public override IList<T> GetWhereInclude(
-            Expression<Func<T, object>> propertySelector, 
-            object propertyValue, 
-            params Expression<Func<T, object>>[] includeProperties) {
-            if (externalDbContext != null){
-                
-            } else{
-                
+        public override T GetByIdInclude(object key, params Expression<Func<T, object>>[] includedProperties){
+          
+            try{
+                return query
             }
-
-            return null;
         }
 
-       
+        public override IList<T> GetWhereInclude(Expression<Func<T, object>> propertySelector, object propertyValue, params Expression<Func<T, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

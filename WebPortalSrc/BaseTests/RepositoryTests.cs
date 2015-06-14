@@ -6,6 +6,7 @@ using System.Linq;
 using WebPortal.DataAccessLayer;
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations;
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerators;
+using WebPortal.DataAccessLayer.IoCInjection;
 using WebPortal.Entities;
 using WebPortal.Entities.Members;
 using Ninject;

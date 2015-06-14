@@ -78,6 +78,7 @@
     <Compile Include="ServicesInjectModule.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IHotListService.cs" />
+    <Compile Include="Services\IMemberNotificationService.cs" />
     <Compile Include="Services\IMemberService.cs" />
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="ServicesImplementation\MessagesService.cs" />
