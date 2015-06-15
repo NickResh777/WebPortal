@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using WebPortal.Entities.Geo;
 
 namespace WebPortal.DataAccessLayer.Mapping.Geo {
-    public class RegionStateMap : BaseMap<RegionState>{
+    public class RegionStateMap : EntityTypeConfiguration<RegionState>{
         public RegionStateMap(){
             ToTable("RegionStates");
 

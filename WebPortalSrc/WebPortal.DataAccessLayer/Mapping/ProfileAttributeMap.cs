@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using WebPortal.Entities.Profile;
 
 namespace WebPortal.DataAccessLayer.Mapping {
-      class ProfileAttributeMap: BaseMap<ProfileAttribute>{
+      class ProfileAttributeMap: EntityTypeConfiguration<ProfileAttribute>{
         public ProfileAttributeMap(){
             HasKey(pMap => pMap.Id);
 

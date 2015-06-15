@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using WebPortal.Entities.Members;
 
 namespace WebPortal.DataAccessLayer.Mapping {
-    class MemberMap: BaseBusinessEntityWithIdMap<Member>{
+    class MemberMap: EntityTypeConfiguration<Member>{
         public MemberMap(){
 
             ToTable("Members");

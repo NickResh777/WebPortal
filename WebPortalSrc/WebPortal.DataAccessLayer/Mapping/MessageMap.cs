@@ -5,11 +5,15 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using WebPortal.Entities;
+using DatingHeaven.Core;
 
 namespace WebPortal.DataAccessLayer.Mapping {
-   class MessageMap : BaseBusinessEntityWithIdMap<Message>{
+   class MessageMap : EntityTypeConfiguration<Message>, IDebug{
         public MessageMap(){
             ToTable("Messages");
+            HasKey(m => m.Id);
+            Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
             Property(m => m.IsRead).IsRequired().HasColumnName("IsRead");
             Property(m => m.ReceiverId).IsRequired().HasColumnName("ReceiverId");
             Property(m => m.SenderId).IsRequired().HasColumnName("SenderId");

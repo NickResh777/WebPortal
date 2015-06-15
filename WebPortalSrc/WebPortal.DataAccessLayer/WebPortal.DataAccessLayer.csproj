@@ -80,8 +80,6 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="LogicalOperation.cs" />
     <Compile Include="Mapping\AuthInfoMap.cs" />
-    <Compile Include="Mapping\BaseBusinessEntityWithIdMap.cs" />
-    <Compile Include="Mapping\BaseMap.cs" />
     <Compile Include="Mapping\Geo\CityMap.cs" />
     <Compile Include="Mapping\Geo\CountryMap.cs" />
     <Compile Include="Mapping\Geo\RegionStateMap.cs" />

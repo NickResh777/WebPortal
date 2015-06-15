@@ -11,9 +11,6 @@ namespace WebPortal.DataAccessLayer.IoCInjection {
             // always create a new repository
             Bind<IDbContext>().To<WebPortalDbContext>();
             Bind(typeof(IRepository<>)).ToProvider(typeof (RepositoryProvider));
-           // Bind<IRepository<HotListEntry>>().To<HotListEntriesRepository>();
-            Bind(typeof (IRepository<>)).To(typeof(EfSingleIdRepository<>));
-            Bind<IDbContextProvider>().To<DbContextProvider>();
             Bind<IEntityPropertySelectionAnalyzer>().To<EntityPropertySelectionAnalyzer>();
             Bind<IEntityInfoResolver>().To<EntityInfoResolver>();
         }

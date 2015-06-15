@@ -41,12 +41,12 @@ namespace WebPortal.DataAccessLayer {
         }
 
         private void RegisterEntityTypeConfigurations(DbModelBuilder modelBuilder){
-            var entityConfigTypes = (from type in typeof (BaseMap<>).Assembly.GetTypes()
+            var entityConfigTypes = (from type in typeof (WebPortalDbContext).Assembly.GetTypes()
                 where type.IsClass && !type.IsAbstract &&
                       (type.BaseType != null) &&
                       type.BaseType.IsGenericType &&
-                      (type.BaseType.GetGenericTypeDefinition() == typeof (BaseMap<>) ||
-                       type.BaseType.GetGenericTypeDefinition() == typeof (BaseBusinessEntityWithIdMap<>))
+                      type.BaseType.GetGenericTypeDefinition() == typeof (EntityTypeConfiguration<>) && 
+                      (type.GetInterface("IDebug") != null) // used for TESTING DEBUG
                 select type).ToList();
 
             entityConfigTypes.ForEach(entConfigType => {

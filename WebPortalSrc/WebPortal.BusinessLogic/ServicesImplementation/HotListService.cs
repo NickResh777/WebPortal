@@ -63,13 +63,9 @@ namespace WebPortal.BusinessLogic.ServicesImplementation {
 
         public IList<Member> GetHotMembers(int memberId){
             try{
-                var query = from hlEntry in _repoHotListEntries.GetWhere(
-                                        propertySelector: hle => hle.MemberId,
-                                        propertyValue: memberId,
-                                        includeProperties: hle => hle.TargetMember)
-                            select hlEntry.TargetMember;
-
-                return query.ToList();
+                return _repoHotListEntries.GetWhere(hle => (hle.MemberId == memberId), 
+                                                   hle => hle.TargetMember)
+                                          .Select(hle => hle.TargetMember).ToList();
             } catch (Exception ex){
                 throw;
             }

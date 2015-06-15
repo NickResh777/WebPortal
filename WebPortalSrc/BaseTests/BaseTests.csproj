@@ -39,9 +39,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -55,18 +58,17 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityPropertySelectionTests.cs" />
-    <Compile Include="LinqExpressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomDataGenerator.cs" />
     <Compile Include="RepositoryTests.cs" />
-    <Compile Include="ServiceTests.cs" />
-    <Compile Include="SqlGeneratorsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebPortal.BusinessLogic\WebPortal.BusinessLogic.csproj">
       <Project>{8B8C867F-3BF3-4B21-8987-F57E79FFF1D3}</Project>
       <Name>WebPortal.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebPortal.Core\WebPortal.Common.csproj">
+      <Project>{5EDCF264-5505-42C5-B983-DE0AAFB28BF3}</Project>
+      <Name>WebPortal.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebPortal.DataAccessLayer\WebPortal.DataAccessLayer.csproj">
       <Project>{36DE29DF-ECC4-4C8B-BDCD-A679DABFD2FE}</Project>

@@ -56,6 +56,7 @@ C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.BusinessLogic\obj\Debug\WebPortal.BusinessLogic.csprojResolveAssemblyReference.cache
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.BusinessLogic\obj\Debug\WebPortal.BusinessLogic.dll
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\WebPortal.BusinessLogic\obj\Debug\WebPortal.BusinessLogic.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\obj\Debug\WebPortal.BusinessLogic.csprojResolveAssemblyReference.cache
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\AutoMapper.Net4.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\WebPortal.BusinessLogic.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\WebPortal.BusinessLogic.pdb
@@ -68,6 +69,8 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Busin
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\WebPortal.DataAccessLayer.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\WebPortal.Entities.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\EntityFramework.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\NLog.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\DatingHeaven.Core.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\WebPortal.DataAccessLayer.pdb
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\WebPortal.Entities.pdb
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\AutoMapper.pdb
@@ -82,6 +85,7 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Busin
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\Quartz.pdb
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\Quartz.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\EntityFramework.xml
-C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\obj\Debug\WebPortal.BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\NLog.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\DatingHeaven.Core.pdb
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\obj\Debug\WebPortal.BusinessLogic.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\obj\Debug\WebPortal.BusinessLogic.pdb

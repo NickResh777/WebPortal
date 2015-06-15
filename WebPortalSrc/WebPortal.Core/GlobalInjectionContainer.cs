@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Ninject;
 using Ninject.Modules;
+using Ninject.Parameters;
 
 namespace DatingHeaven.Core
 {
@@ -25,7 +26,7 @@ namespace DatingHeaven.Core
             }
         }
 
-        public void Load(params INinjectModule[] modules){
+        public void LoadModules(params INinjectModule[] modules){
             // create the kernel
             _nInjectKernel = new StandardKernel(modules);
         }
@@ -35,7 +36,7 @@ namespace DatingHeaven.Core
                    // cannot get any registered type cause Kernel is not defined
                    throw new NullReferenceException("Injection Kernel is not defined!");
             }
-
+       
             return _nInjectKernel.Get<T>();
         }
     }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using WebPortal.Entities.Geo;
 
 namespace WebPortal.DataAccessLayer.Mapping.Geo {
-    public class CityMap : BaseMap<City>{
+    public class CityMap : EntityTypeConfiguration<City>{
         public CityMap(){
             ToTable("Cities");
             HasKey(c => c.Id);

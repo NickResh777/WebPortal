@@ -15,7 +15,9 @@ namespace WebPortal.DataAccessLayer.Repositories {
                         select ent;
 
             // include properties if needed
-            IncludeEntityPropertiesInQuery(query, includedProps);
+            if (includedProps != null){
+                  IncludeEntityPropertiesInQuery(query, includedProps);
+            }
 
             try{
                 return query.FirstOrDefault();

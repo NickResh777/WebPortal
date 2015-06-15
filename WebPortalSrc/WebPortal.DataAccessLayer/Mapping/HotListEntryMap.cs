@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using WebPortal.Entities;
 
 namespace WebPortal.DataAccessLayer.Mapping {
-    public class HotListEntryMap : BaseMap<HotListEntry>{
+    public class HotListEntryMap : EntityTypeConfiguration<HotListEntry>{
         public HotListEntryMap(){
             ToTable("HotList");
 
