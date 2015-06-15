@@ -32,7 +32,9 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
             set; 
         }
 
-        public void Initialize(string tableName)
+        public void Initialize(string tableName){
+            
+        }
 
         protected override void GenerateSqlClauseInternal(StringBuilder sb){
             // append the 'SELECT' clause

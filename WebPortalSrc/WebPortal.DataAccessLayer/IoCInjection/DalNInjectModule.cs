@@ -13,7 +13,6 @@ namespace WebPortal.DataAccessLayer.IoCInjection {
             Bind(typeof(IRepository<>)).ToProvider(typeof (RepositoryProvider));
            // Bind<IRepository<HotListEntry>>().To<HotListEntriesRepository>();
             Bind(typeof (IRepository<>)).To(typeof(EfSingleIdRepository<>));
-            Bind<IEntitySqlGeneratorsProvider>().To<EntitySqlGeneratorsProvider>();
             Bind<IDbContextProvider>().To<DbContextProvider>();
             Bind<IEntityPropertySelectionAnalyzer>().To<EntityPropertySelectionAnalyzer>();
             Bind<IEntityInfoResolver>().To<EntityInfoResolver>();

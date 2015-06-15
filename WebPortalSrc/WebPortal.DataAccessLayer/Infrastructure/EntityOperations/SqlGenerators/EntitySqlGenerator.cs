@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using WebPortal.Entities;
@@ -47,8 +48,7 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
 
             GenerateSqlClauseInternal(sb);
 
-            // GENERATE THE MAJOR PART OF THE SQL QUERY
-            //GenerateFromClause(sb);
+     
 
             if (WhereConditions != null){
                 // GENERATE THE 'WHERE' CLAUSE
@@ -80,6 +80,12 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
             WriteConditions(sb);
         }
 
+        public object[] BuildParametersList( )
+        {  
+            // call a recursive function with initial value of parameter index (0)
+            return BuildParametersRecursive(0, WhereConditions);
+        }
+
 
         private void WriteConditions(StringBuilder sb){
             for (var conditionIndex = 0; conditionIndex < WhereConditions.Count; conditionIndex++){
@@ -98,6 +104,27 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
             }
         }
 
+        private object[] BuildParametersRecursive(int conditionIndex, IEnumerable<IWhereConditionRoot> conditionsList)
+        {
+            var parametersList = new List<object>();
+
+            foreach (var condition in conditionsList)
+            {
+                if (condition is WhereCondition){
+                    string parameterName = string.Format("@p{0}", conditionIndex++);
+                    var sqlParameter = new SqlParameter(parameterName, ((WhereCondition)condition).Value);
+                    parametersList.Add(sqlParameter);
+                }
+                else if (condition is WhereConditionsGroup){
+                    // recursive call
+                    var recResult = BuildParametersRecursive(conditionIndex,
+                        ((WhereConditionsGroup)condition).Conditions);
+                    parametersList.AddRange(recResult);
+                }
+            }
+
+            return parametersList.ToArray();
+        }
         
 
         private void WriteConditionsGroup(StringBuilder sb, WhereConditionsGroup group){

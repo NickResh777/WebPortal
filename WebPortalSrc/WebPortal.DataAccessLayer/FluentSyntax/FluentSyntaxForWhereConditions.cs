@@ -12,7 +12,6 @@ namespace WebPortal.DataAccessLayer.FluentSyntax {
         private readonly IEntityPropertySelectionAnalyzer _propertySelectionAnalyzer;
         private readonly List<IWhereConditionRoot> _conditionsList = new List<IWhereConditionRoot>();
         private readonly IDbContext _dbContext;
-        private readonly IEntitySqlGeneratorsProvider _sqlGeneratorsProvider;
         private readonly List<LogicalOperation> _logicalOperations = new List<LogicalOperation>();
         private readonly IEntityInfoResolver _entityInfoResolver;
         private readonly Stack<WhereConditionsGroup> _stackConditionGroups = new Stack<WhereConditionsGroup>();
@@ -21,11 +20,9 @@ namespace WebPortal.DataAccessLayer.FluentSyntax {
 
         public FluentSyntaxForWhereConditions(IEntityPropertySelectionAnalyzer propertySelectionAnalyzer, 
                                               IDbContext dbContext, 
-                                              IEntitySqlGeneratorsProvider sqlGeneratorsFactory, 
                                               IEntityInfoResolver entityInfoResolver){
             _propertySelectionAnalyzer = propertySelectionAnalyzer;
             _dbContext = dbContext;
-            _sqlGeneratorsProvider = sqlGeneratorsFactory;
             _entityInfoResolver = entityInfoResolver;
         }
 
@@ -106,23 +103,21 @@ namespace WebPortal.DataAccessLayer.FluentSyntax {
         } 
 
         public IList<T> Select(){
-            List<T> result = null;
             using (_dbContext){
-                var generator = _sqlGeneratorsProvider.CreateSelectGenerator();
+                var generator = new SelectEntitySqlGenerator();
                 InitializeSelectGenerator(generator);
 
                 try{
                     var query = _dbContext.Set<T>().SqlQuery(
                                sql: generator.GenerateSql(),
-                               parameters: _sqlGeneratorsProvider.BuildParametersList(generator.WhereConditions));
+                               parameters: generator.BuildParametersList()
+                    );
                     // return the list
-                    result = query.ToList();
+                    return query.ToList();
                 } catch (Exception ex){
-                    
+                    throw;
                 }
             }
-
-            return result;
         }
 
        

@@ -17,13 +17,5 @@ namespace WebPortal.Entities {
             get; 
             set; 
         }
-
-
-        [Timestamp]
-        public byte[] RowVersion{
-            get; 
-            set; 
-        }
-
     }
 }

@@ -5,7 +5,9 @@ using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
+using DatingHeaven.Core;
 using JetBrains.Annotations;
+using Ninject;
 using NLog;
 using WebPortal.DataAccessLayer.FluentSyntax;
 using WebPortal.DataAccessLayer.Infrastructure;
@@ -17,19 +19,11 @@ namespace WebPortal.DataAccessLayer.Repositories {
     public abstract class EfBaseRepository<T>: IRepository<T> where T: BaseEntity{
         protected Logger Log;
 
-        private readonly IEntityInfoResolver              _entityInfoResolver;
-        private readonly IEntitySqlGeneratorsProvider     _sqlGeneratorsProvider;
-        private readonly IEntityPropertySelectionAnalyzer _propertySelectionAnalyzer;
+        private                 IEntityInfoResolver          _entityInfoResolver;
         private      readonly   IDbContext                   _dbContext;
         protected    readonly   DbSet<T>                     Set;
 
-        protected EfBaseRepository(IEntitySqlGeneratorsProvider sqlGeneratorsFactory, 
-                                   IEntityPropertySelectionAnalyzer propertySelectionAnalyzer, 
-                                   IEntityInfoResolver entityInfoResolver, 
-                                   IDbContext dbContext){
-            _sqlGeneratorsProvider = sqlGeneratorsFactory;
-            _propertySelectionAnalyzer = propertySelectionAnalyzer;
-            _entityInfoResolver = entityInfoResolver;
+        protected EfBaseRepository(IDbContext dbContext){
             _dbContext = dbContext;
             Set = _dbContext.Set<T>();
             Log = LogManager.GetLogger(GetType().Name);
@@ -48,103 +42,48 @@ namespace WebPortal.DataAccessLayer.Repositories {
                 throw;
             }
         }
-  
-        public IList<T> GetAll(){
+
+        public IList<T> GetAll(params Expression<Func<T, object>>[] incProps)
+        {
+            var queryGetAll = from ent in Set
+                              select ent;
+
+            // include entity related properties
+            IncludeEntityPropertiesInQuery(queryGetAll, incProps);
+
             try{
-                var queryGetAll = from ent in Set
-                                  select ent;
                 return queryGetAll.ToList();
-            } catch (Exception ex){
-                Log.Error(ex, "Failed to get all entities from table");
+            }catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to get entities");
                 throw;
             }
         }
 
-        #region === Abstract methods ==
 
-           // Get a signle entity by id with included properties
-           public abstract T GetByIdInclude(object entityKey, params Expression<Func<T, object>>[] includedProperties);
+        public IList<T> GetWhere(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] incProps)
+        {
+            IQueryable<T> query = Set.AsNoTracking();
 
-           public abstract IList<T> GetWhereInclude(
-               Expression<Func<T, object>> propertySelector, 
-               object propertyValue,
-               params Expression<Func<T, object>>[] includeProperties);
-
-        #endregion
-
-
-        public IList<T> GetWhere(Expression<Func<T, object>> propertySelector, object propertyValue){
-            // validate the current selector
-            _propertySelectionAnalyzer.ValidateSelector<T>(propertySelector);
-
-            // get the entity property name from the current selector
-            string propertyName = _propertySelectionAnalyzer.GetPropertyName<T>(propertySelector);
- 
-            // call the internal method that invokes calls to SQL source
-            return GetWhereInternal(propertyName, Comparison.Equals, propertyValue);
-        }
-
-        
-                          
-        public IList<T> GetWhere(Expression<Func<T, object>> propertySelector, 
-                                     Comparison comparison, 
-                                     object propertyValue){
-            _propertySelectionAnalyzer.ValidateSelector(propertySelector);
-            
-            // get property name of entity using a selector expression
-            string propertyName = _propertySelectionAnalyzer.GetPropertyName(propertySelector);
-
-            return GetWhereInternal(propertyName, comparison, propertyValue);
-        }
-
-        
-
-        private IList<T> GetWhereInternal(string propertyName, 
-                                          Comparison comparison, 
-                                          object propertyValue){
-            IList<T> result = null;
-
-            
-                SelectEntitySqlGenerator sqlGenerator = _sqlGeneratorsProvider.CreateSelectGenerator();
-
-                // initialize the query generator
-                InitializeSqlGenerator(sqlGenerator, propertyName, comparison, propertyValue);
-
-            using (var dbContext = dbContextProvider.CreateContext()){
-                try{
-                    var query = dbContext.Set<T>().SqlQuery(
-                        sql: sqlGenerator.GenerateSql(),
-                        parameters: _sqlGeneratorsProvider.BuildParametersList(sqlGenerator.WhereConditions));
-                    result = query.ToList();
-                } catch (Exception){
-
-                    throw;
-                }
+            // include entity related properties if needed
+            if (incProps != null){
+                // append related properties
+                IncludeEntityPropertiesInQuery(query, incProps);
             }
+           
+            // add the WHERE filter
+            query = query.Where(predicate);
 
-
-            return result;
+            try{
+                return query.ToList();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed");
+                throw;
+            }
         }
 
-        private void InitializeSqlGenerator(SelectEntitySqlGenerator sqlGenerator,
-                string propertyName,
-                Comparison comparison,
-                object propertyValue){
-            sqlGenerator.SelectAllColumns = true;
-            sqlGenerator.TableName = _entityInfoResolver.GetTableName<T>();
-
-            var whereCondition = new WhereCondition{
-                Column = propertyName,
-                Operator = comparison,
-                Value = propertyValue
-            };
-
-            sqlGenerator.WhereConditions.Add(whereCondition);
-        }
-
-        public IList<T> GetWhere(string property, object propertyValue){
-            return GetWhereInternal(property, Comparison.Equals, propertyValue);
-        }
 
         public void Refresh(T entity) {
             _dbContext.MarkAsChanged(entity);
@@ -180,9 +119,30 @@ namespace WebPortal.DataAccessLayer.Repositories {
         }
 
 
-        public void DeleteById(object entityKey){
-           //var generator =  _sqlGeneratorsFactory.CreateDeleteGenerator<T>();
-           //InitializeGenerator(generator);
+        public virtual void DeleteById(object entityKey){
+            if ((entityKey is int) && (typeof(BaseBusinessEntityWithId).IsAssignableFrom(typeof(T)))){
+                var generator = new DeleteEntitySqlGenerator{
+                       // init the TableName 
+                       TableName = GetEntityInfoResolver().GetTableName<T>()
+                };
+                 
+                // add condition, ---> WHERE [Id] = @id
+                generator.WhereConditions.Add(new WhereCondition{
+                     Column = "Id",
+                     Operator = Comparison.Equals,
+                     Value = entityKey
+                });
+
+                try{
+                    int result = _dbContext.Database.ExecuteSqlCommand(
+                                  sql: generator.GenerateSql(),
+                                  parameters: generator.BuildParametersList()
+                         );
+                } catch (Exception ex){
+                    Log.Error(ex, "Method <DeleteById> failed");
+                    throw;
+                }
+            } 
         }
 
 
@@ -204,18 +164,11 @@ namespace WebPortal.DataAccessLayer.Repositories {
             } 
         }
 
-
-        public IList<T> GetWhere(string property, Comparison comparison, object propertyValue){
-            return GetWhereInternal(property, comparison, propertyValue);
-        }
-
-
-        public FluentSyntaxForWhereConditions<T> Where() {
+        public FluentSyntaxForWhereConditions<T> Where(){
             return new FluentSyntaxForWhereConditions<T>(
-                              propertySelectionAnalyzer: _propertySelectionAnalyzer,
-                              dbContext: dbContextProvider.CreateContext(),
-                              sqlGeneratorsFactory: _sqlGeneratorsProvider,
-                              entityInfoResolver: _entityInfoResolver
+                propertySelectionAnalyzer: GetPropertySelectionAnalyzer(),
+                dbContext: _dbContext,
+                entityInfoResolver: GetEntityInfoResolver()
             );
         }
 
@@ -224,14 +177,25 @@ namespace WebPortal.DataAccessLayer.Repositories {
                 return Set;
             }
         }
-
-
-        protected bool HasAnyIncludedProperty(params Expression<Func<T, object>>[] includedProperties){
-            // check if 
-            return (includedProperties != null) && (includedProperties.Length > 0);
+  
+        protected void IncludeEntityPropertiesInQuery(IQueryable<T> query,
+                                                      params Expression<Func<T, object>>[] includedProperties){
+                   var incList = includedProperties.ToList();
+                   incList.ForEach((incExpression) => { query = query.Include(incExpression); });
         }
 
+        protected IEntityInfoResolver GetEntityInfoResolver(){
+            if (_entityInfoResolver == null){
+                  // resolve EntityInfoResolver
+                  _entityInfoResolver = GlobalInjectionContainer.Instance.Get<IEntityInfoResolver>();
+            }
 
-    
+            return _entityInfoResolver;
+        }
+
+        protected IEntityPropertySelectionAnalyzer GetPropertySelectionAnalyzer(){
+            // get the property selection analyzer
+            return GlobalInjectionContainer.Instance.Get<IEntityPropertySelectionAnalyzer>();
+        }
     }
 }

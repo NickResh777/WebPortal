@@ -20,48 +20,45 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
     public class EntityOperationsProvider : IEntityOperationsProvider{
         private readonly IEntityInfoResolver                     _entityInfoResolver;
         private readonly IDbContext                              _dbContext;
-        private readonly IEntitySqlGeneratorsProvider             _sqlGeneratorsFactory;
 
-        public EntityOperationsProvider(              IEntityInfoResolver   entityInfoResolver,                       
-                                                            IDbContext   dbContext,
-                                            IEntitySqlGeneratorsProvider  sqlGeneratorsFactory){
+        public EntityOperationsProvider( IEntityInfoResolver   entityInfoResolver,                       
+                                                  IDbContext   dbContext){
             _entityInfoResolver = entityInfoResolver;
             _dbContext = dbContext;   // dbContext //
-            _sqlGeneratorsFactory = sqlGeneratorsFactory;
         }
 
         public virtual object GetPropertyValue<T>(object entityKey, string entityProperty) where T : BaseEntity{
             EnsureEntityKeyIsValid(entityKey);
-            SelectEntitySqlGenerator sqlGenerator = _sqlGeneratorsFactory.CreateSelectGenerator();
+            SelectEntitySqlGenerator generator = new SelectEntitySqlGenerator();
 
             // initialize the generator
-            InitializeSelectSqlGenerator<T>(     sqlGenerator: sqlGenerator,
+            InitializeSelectSqlGenerator<T>(     sqlGenerator: generator,
                                                     entityKey: entityKey,
                                            selectedProperties: entityProperty);
             
-
+            // build query
             var querySelectProperty = _dbContext.Database.SqlQuery(
                 // TODO: Finish with EntityProviderAnalyzer 
                  elementType: _entityInfoResolver.GetPropertyType<T>(entityProperty),
-                 sql: sqlGenerator.GenerateSql(),
+                 sql: generator.GenerateSql(),
                  parameters: MakeParametersFromEntityKey(entityKey)
             );
          
             //return the value
             var enumerator = querySelectProperty.GetEnumerator();
-            object result = null;
 
             try{
+                object result = null;
+
                 if (enumerator.MoveNext()){
                     // get a value from enumerator
                     result = enumerator.Current;
                 }
+                return result;
             } catch (Exception ex){
-
+                // todo: Log error here
                 throw;
             }
-
-            return result;
         }
 
         
@@ -111,7 +108,7 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
         public bool SetPropertyValue<T>(object entityKey, string property, object value) where T: BaseBusinessEntity{
             EnsureEntityKeyIsValid(entityKey);
 
-            var updateEntityGen = _sqlGeneratorsFactory.CreateUpdateGenerator();
+            var updateEntityGen = new UpdateEntitySqlGenerator();
             //updateEntityGen.Key = entityKey;
             updateEntityGen.Set(property, value);
 
@@ -186,10 +183,6 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
                 //
                 throw new ArgumentException("Entity Key must be of type: [int, string, EntityKey]");
             }
-        }
-
-        public IEntityInfoResolver EntityInfoResolver {
-            get { throw new NotImplementedException(); }
         }
     }
 }

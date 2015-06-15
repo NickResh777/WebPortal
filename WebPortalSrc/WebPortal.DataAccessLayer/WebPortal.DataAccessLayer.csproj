@@ -74,10 +74,7 @@
     <Compile Include="Infrastructure\EntityOperations\EntityInfoResolver.cs" />
     <Compile Include="Infrastructure\EntityOperations\IEntityInfoResolver.cs" />
     <Compile Include="Infrastructure\EntityOperations\SqlGenerators\EntitySqlGenerator.cs" />
-    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\IEntitySqlGeneratorsProvider.cs" />
     <Compile Include="Infrastructure\EntityOperations\SqlGenerators\SqlGenerator.cs" />
-    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\SqlGeneratorConfig.cs" />
-    <Compile Include="Infrastructure\EntityOperations\SqlGenerators\EntitySqlGeneratorsProvider.cs" />
     <Compile Include="Infrastructure\EntityOperations\SqlGenerators\UpdateEntitySqlGenerator.cs" />
     <Compile Include="Infrastructure\EntityOperations\UpdatePropertySqlQueryGenerator.cs" />
     <Compile Include="IRepository.cs" />
@@ -107,6 +104,10 @@
     <Compile Include="FluentSyntax\FluentSyntaxForWhereConditions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WebPortal.Core\WebPortal.Common.csproj">
+      <Project>{5EDCF264-5505-42C5-B983-DE0AAFB28BF3}</Project>
+      <Name>WebPortal.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebPortal.Entities\WebPortal.Entities.csproj">
       <Project>{B663A26A-A35B-41D1-953E-8CDD92872EAE}</Project>
       <Name>WebPortal.Entities</Name>

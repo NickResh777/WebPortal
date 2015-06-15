@@ -13,25 +13,20 @@ namespace WebPortal.DataAccessLayer {
         /// <summary>
         /// Get entity by key
         /// </summary>
-        T GetById(object entityKey, params  Expression<Func<T, object>>[] includedProperties);
-
+        T GetById(object entityKey, params Expression<Func<T, object>>[] includedProperties);
 
         /// <summary>
         /// Get all entities in the table
         /// </summary>
         IList<T> GetAll(params Expression<Func<T, object>>[] incProps );
-      
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="propertySelector"></param>
-        /// <param name="propertyValue"></param>
-        /// <param name="includeProperties"></param>
+        /// <param name="predicate"></param>
+        /// <param name="incProps"></param>
         /// <returns></returns>
-        IList<T> GetWhereInclude(Expression<Func<T, object>> propertySelector, object propertyValue,
-                                  params Expression<Func<T, object>>[] includeProperties); 
-            
-   
+        IList<T> GetWhere(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] incProps); 
 
         /// <summary>
         /// Get total amount of entities stored in the table
@@ -41,22 +36,7 @@ namespace WebPortal.DataAccessLayer {
         /// <summary>
         /// Get count of entities that fit the current filter
         /// </summary>
-        int GetCountWhere(Expression<Func<T, bool>> propertySelector);
-
-        /// <summary>
-        /// Get entities using a filter
-        /// </summary>
-        IList<T> GetWhere(Expression<Func<T, object>> propertySelector, object propertyValue);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        IList<T> GetWhere(Expression<Func<T, object>> propertySelector, Comparison comparison, object propertyValue); 
-
-        /// <summary>
-        /// Get entities using a filter with EQUALS operator
-        /// </summary>
-        IList<T> GetWhere(string propertyName, object propertyValue);
+        int GetCountWhere(Expression<Func<T, bool>> predictate);
 
         /// <summary>
         /// Fluent syntax for filtering
@@ -70,11 +50,6 @@ namespace WebPortal.DataAccessLayer {
         ///  _repo.Where().Property( m => m.Login).Equals("AwesomeBoy").Update( m => m.FirstName, "James");
         /// </summary>
         FluentSyntaxForWhereConditions<T> Where();
-
-        /// <summary>
-        /// Get entities using a filter
-        /// </summary>
-        IList<T> GetWhere(string propertyName, Comparison comparison, object propertyValue); 
 
         /// <summary>
         /// Update the current entity

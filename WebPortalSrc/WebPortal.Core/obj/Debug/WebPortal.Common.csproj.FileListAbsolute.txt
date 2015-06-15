@@ -27,6 +27,16 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Iesi.Collections.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\NHibernate.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Ninject.xml
-C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\obj\Debug\WebPortal.Common.csprojResolveAssemblyReference.cache
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\obj\Debug\DatingHeaven.Core.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\obj\Debug\DatingHeaven.Core.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Common.Logging.Core.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Common.Logging.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\NLog.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Quartz.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Common.Logging.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Common.Logging.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Common.Logging.Core.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Common.Logging.Core.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\NLog.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Quartz.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Core\bin\Debug\Quartz.xml

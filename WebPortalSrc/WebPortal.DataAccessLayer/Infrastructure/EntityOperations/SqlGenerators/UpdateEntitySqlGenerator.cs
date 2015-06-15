@@ -9,9 +9,6 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerator
     public class UpdateEntitySqlGenerator : EntitySqlGenerator{
         private Dictionary<string, object> _setProperties;    
 
-        public UpdateEntitySqlGenerator(SqlGeneratorConfig config) : base(config){
-                        
-        }
 
         public void Set(IDictionary<string, object> setValues){
             if (setValues == null){

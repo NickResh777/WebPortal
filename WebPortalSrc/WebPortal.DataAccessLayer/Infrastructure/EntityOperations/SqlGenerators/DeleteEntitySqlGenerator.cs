@@ -5,9 +5,7 @@ using System.Text;
 
 namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerators {
     public class DeleteEntitySqlGenerator : EntitySqlGenerator {
-        public DeleteEntitySqlGenerator(SqlGeneratorConfig config) : base(config){
-            
-        }
+        
 
         protected override void GenerateSqlClauseInternal(StringBuilder sb){
             sb.Append("DELETE ");
