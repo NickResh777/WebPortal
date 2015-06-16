@@ -30,5 +30,15 @@ namespace WebPortal.DataAccessLayer {
         /// Set the entity property value using a Lambda property selector
         /// </summary>
         bool SetPropertyValue<T>(object entityKey, Expression<Func<T, object>> propertySelector, object value) where T: BaseBusinessEntity;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityType"></param>
+        /// <param name="entityKeys"></param>
+        /// <param name="dbContext"></param>
+        /// <returns></returns>
+        int DeleteEntityByKey(Type entityType, object[] entityKeys, IDbContext dbContext);
     }
 }

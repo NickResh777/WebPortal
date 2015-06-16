@@ -2,7 +2,6 @@
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerators;
 
 namespace WebPortal.DataAccessLayer.Infrastructure{
-    [DebuggerDisplay("{Column} {Operator} {Value}")]
     public class WhereCondition : IWhereConditionRoot{
         public string Column{
             get; 

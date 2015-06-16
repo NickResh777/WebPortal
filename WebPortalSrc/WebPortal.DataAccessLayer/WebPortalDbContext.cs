@@ -45,8 +45,7 @@ namespace WebPortal.DataAccessLayer {
                 where type.IsClass && !type.IsAbstract &&
                       (type.BaseType != null) &&
                       type.BaseType.IsGenericType &&
-                      type.BaseType.GetGenericTypeDefinition() == typeof (EntityTypeConfiguration<>) && 
-                      (type.GetInterface("IDebug") != null) // used for TESTING DEBUG
+                      type.BaseType.GetGenericTypeDefinition() == typeof (EntityTypeConfiguration<>)
                 select type).ToList();
 
             entityConfigTypes.ForEach(entConfigType => {

@@ -4,13 +4,24 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Caching;
 using WebPortal.Entities;
 
 namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
     public class EntityInfoResolver: IEntityInfoResolver{
         private static readonly Dictionary<Type, TableAttribute> TableNames = new Dictionary<Type, TableAttribute>(); 
         private static readonly Dictionary<Type, Dictionary<string, PropertyInfo>> EntityProperties = new Dictionary<Type, Dictionary<string, PropertyInfo>>();  
-        private static readonly Dictionary<Type, string> EntityKeyPropertyNames = new Dictionary<Type, string>(); 
+        private static readonly Dictionary<Type, string> EntityKeyPropertyNames = new Dictionary<Type, string>();
+
+
+        static EntityInfoResolver(){
+             ResolveTableNames();
+        }
+
+        private static void ResolveTableNames(){
+            
+        }
+
 
         public string GetTableName<T>() where T : class {
               EnsureTableAttributeExists<T>();
@@ -43,7 +54,7 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
             }
 
             var tableAttribute = (TableAttribute)attributes.FirstOrDefault();
-            TableNames.Add( type, tableAttribute);
+            TableNames.Add(type, tableAttribute);
         }
 
         private bool HasTableName<TEntity>(){
@@ -62,11 +73,11 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
             if (!HasEntityProperties<T>()){
                 lock (EntityProperties){
                     if (!HasEntityProperties<T>()){
-                        var type = typeof (T);
-                        var properties = type.GetProperties().ToList();
-                        var propertiesMap = new Dictionary<string, PropertyInfo>();
-                        properties.ForEach(prop => propertiesMap.Add(prop.Name, prop));
-                        EntityProperties.Add(type, propertiesMap);
+                            var type = typeof (T);
+                            var properties = type.GetProperties().ToList();
+                            var propertiesMap = new Dictionary<string, PropertyInfo>();
+                            properties.ForEach(prop => propertiesMap.Add(prop.Name, prop));
+                            EntityProperties.Add(type, propertiesMap);
                     }
                 }
             }
@@ -114,6 +125,12 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
         }
 
         public string GetEntityKeyPropertyName<T>(int keyPropertyOrder) where T : BaseEntity {
+            throw new NotImplementedException();
+        }
+
+
+        public string GetTableName(Type entityType)
+        {
             throw new NotImplementedException();
         }
     }

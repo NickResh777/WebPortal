@@ -12,7 +12,8 @@ namespace WebPortal.DataAccessLayer.Mapping {
         public MessageMap(){
             ToTable("Messages");
             HasKey(m => m.Id);
-            Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(m => m.Id).
+                HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(m => m.IsRead).IsRequired().HasColumnName("IsRead");
             Property(m => m.ReceiverId).IsRequired().HasColumnName("ReceiverId");

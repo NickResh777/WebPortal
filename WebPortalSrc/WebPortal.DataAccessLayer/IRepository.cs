@@ -74,6 +74,12 @@ namespace WebPortal.DataAccessLayer {
         /// <summary>
         /// Get the entity table 
         /// </summary>
-        IQueryable<T> Table { get; } 
+        IQueryable<T> Table { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        int SaveChanges();
     }
 }

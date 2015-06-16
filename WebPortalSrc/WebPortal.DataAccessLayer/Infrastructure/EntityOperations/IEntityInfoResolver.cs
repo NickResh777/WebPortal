@@ -8,6 +8,9 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
         /// </summary>
         string GetTableName<T>() where T : class ;
 
+
+        string GetTableName(Type entityType);
+
         /// <summary>
         /// Get schema of the table by its entity type
         /// </summary>

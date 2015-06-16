@@ -5,7 +5,13 @@ using System.Text;
 
 namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerators {
     public class DeleteEntitySqlGenerator : EntitySqlGenerator {
-        
+
+
+        public DeleteEntitySqlGenerator(string tableName, WhereCondition singleWhereCondition){
+            TableName = tableName;
+            WhereConditions.Add(singleWhereCondition);
+        }
+
 
         protected override void GenerateSqlClauseInternal(StringBuilder sb){
             sb.Append("DELETE ");

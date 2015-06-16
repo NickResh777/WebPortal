@@ -184,5 +184,43 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
                 throw new ArgumentException("Entity Key must be of type: [int, string, EntityKey]");
             }
         }
+
+
+        private bool IsBaseBusinessEntityWithId(Type entityType){
+            bool result = false;
+            Type currentType = entityType;
+
+            while(currentType != null){
+                if (currentType.BaseType == typeof (BaseBusinessEntityWithId)){
+                    // we found the BaseBusinessEntityWithId parent type
+                    result = true;
+                    break;
+                }
+
+                currentType = currentType.BaseType;
+            }
+
+            return result;
+        }
+
+        public int DeleteEntityByKey(Type entityType, object[] entityKeys, IDbContext dbContext){
+            if (IsBaseBusinessEntityWithId(entityType)){
+                    var sqlDeleteGenerator = new DeleteEntitySqlGenerator(
+                                    tableName: _entityInfoResolver.GetTableName(entityType),
+                                    singleWhereCondition: new WhereCondition{
+                                        Column = "Id",
+                                        Operator = Comparison.Equals,
+                                        Value = entityKeys.First()
+                                });
+
+                    return dbContext.Database.ExecuteSqlCommand(
+                            sql: sqlDeleteGenerator.GenerateSql(),
+                            parameters: sqlDeleteGenerator.BuildParametersList()
+                    );
+            }
+
+            // nothing was deleted
+            return (0);
+        }
     }
 }
