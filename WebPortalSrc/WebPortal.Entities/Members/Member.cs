@@ -8,7 +8,13 @@ using WebPortal.Entities.Members;
 namespace WebPortal.Entities.Members {
     [Table("Members")]
     public class Member: BaseBusinessEntityWithId{
-       
+
+        public Member(){
+
+            IsTrial = true;
+            IsVip = false;
+        }
+
         public string NickName{
             get; 
             set; 
@@ -26,6 +32,17 @@ namespace WebPortal.Entities.Members {
 
         
         public string Gender{
+            get; 
+            set;                                                             
+        }
+
+        
+        public bool IsTrial{
+            get; 
+            set; 
+        }
+
+        public bool IsVip{
             get; 
             set; 
         }

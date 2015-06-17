@@ -31,6 +31,8 @@ namespace WebPortal.BusinessLogic.OnlineUsers
             }
         }
 
+        
+
         public OnlineUserEntry[] GetOnline()
         {
             List<OnlineUserEntry> result = null;

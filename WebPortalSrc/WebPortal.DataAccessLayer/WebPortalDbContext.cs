@@ -21,7 +21,7 @@ using WebPortal.Entities.Profile;
 namespace WebPortal.DataAccessLayer {
     public class WebPortalDbContext : DbContext, IDbContext{
         public WebPortalDbContext(){
-            // enable the Lazy Loading
+
             Configuration.LazyLoadingEnabled = false;
         }
 

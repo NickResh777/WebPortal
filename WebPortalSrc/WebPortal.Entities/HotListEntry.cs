@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using WebPortal.Entities.Members;
 
 namespace WebPortal.Entities {
+    [Table("HotList")]
     public class HotListEntry : BaseBusinessEntity {
         public int MemberId{
             get; 

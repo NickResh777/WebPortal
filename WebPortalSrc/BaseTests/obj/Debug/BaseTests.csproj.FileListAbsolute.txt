@@ -75,3 +75,6 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\D
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\Common.Logging.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\obj\Debug\BaseTests.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\obj\Debug\BaseTests.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\AutoMapper.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\AutoMapper.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\AutoMapper.xml

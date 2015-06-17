@@ -14,8 +14,7 @@ namespace WebPortal.BusinessLogic {
         }
 
         protected BaseService(IEntityOperationsProvider entityContextProvider){
-            _entityOperationsProvider = entityContextProvider;
-            
+            _entityOperationsProvider = entityContextProvider;         
         }
 
         protected IEntityOperationsProvider EntityOperations{

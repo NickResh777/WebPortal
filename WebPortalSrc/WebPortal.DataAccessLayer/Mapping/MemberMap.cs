@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
@@ -10,25 +11,49 @@ namespace WebPortal.DataAccessLayer.Mapping {
         public MemberMap(){
 
             ToTable("Members");
+
+            HasKey(m => m.Id);
+
+            Property(m => m.Id).
+                HasColumnName("Id").
+                HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            // first name
             Property(m => m.FirstName).
                 HasColumnName("FirstName").
                 IsOptional().
-                HasMaxLength(100);
+                HasMaxLength(50);
 
             Property(m => m.LastName).
                 HasColumnName("LastName").
-                HasMaxLength(100).
+                IsOptional().
+                HasMaxLength(100);
+
+            Property(m => m.NickName).
+                HasColumnName("Nickname").
+                IsRequired().
+                HasMaxLength(50);
+
+
+            Property(m => m.Email).
+                HasColumnName("Email").
+                IsRequired().
+                HasMaxLength(200);
+
+            Property(m => m.LastVisit).
+                HasColumnName("LastVisit").
                 IsOptional();
 
-            Property(m => m.LastVisit).IsOptional().HasColumnName("LastVisit");
+            Property(m => m.Gender).
+                IsRequired().
+                HasColumnName("Gender").
+                HasMaxLength(1).
+                HasColumnType("char");
 
-            Property(m => m.Gender).IsRequired().HasColumnName("Gender").HasMaxLength(1).HasColumnType("char");
-            Property(m => m.NickName).IsRequired().HasMaxLength(50).HasColumnName("NickName");
-            Property(m => m.Email).IsRequired().HasMaxLength(200).HasColumnName("Email");
+            
+            
 
-            HasRequired(m => m.Profile).WithRequiredPrincipal();
-
-           
+             HasRequired(m => m.Profile).WithRequiredPrincipal();        
         }
     }
 }

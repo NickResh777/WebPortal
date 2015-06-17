@@ -31,11 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="AutoMapper.Net4">
+    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Common.Logging">
       <HintPath>..\packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
@@ -61,13 +63,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMapConverters\MemberMemberDtoConverter.cs" />
+    <Compile Include="AutoMapRegistrations.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="DTOs\BaseDto.cs" />
     <Compile Include="DTOs\HotListEntryDto.cs" />
+    <Compile Include="DTOs\MemberDto.cs" />
     <Compile Include="DTOs\ProfileAttributeDto.cs" />
     <Compile Include="OnlineUsers\OnlineUserEntry.cs" />
     <Compile Include="OnlineUsers\OnlineUsersStorage.cs" />
     <Compile Include="OnlineUsers\Jobs\SetUserOfflineJob.cs" />
+    <Compile Include="PredicateExpressionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SecretKey.cs" />
     <Compile Include="Security\WebPortalMemberIdentity.cs" />
@@ -75,6 +81,7 @@
     <Compile Include="ServiceResponse.cs" />
     <Compile Include="ServicesImplementation\Auth\LogInResult.cs" />
     <Compile Include="ServicesImplementation\HotListService.cs" />
+    <Compile Include="ServicesImplementation\MemberService.cs" />
     <Compile Include="ServicesInjectModule.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IHotListService.cs" />
@@ -83,6 +90,7 @@
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="ServicesImplementation\MessagesService.cs" />
     <Compile Include="Services\IProfileService.cs" />
+    <Compile Include="DTOs\Queries\SearchMembersQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebPortal.DataAccessLayer\WebPortal.DataAccessLayer.csproj">

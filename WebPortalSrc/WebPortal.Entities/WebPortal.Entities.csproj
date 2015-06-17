@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel.DomainServices.Hosting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -62,6 +63,7 @@
     <Compile Include="BlockList\BlockDuration.cs" />
     <Compile Include="BlockList\BlockListEntry.cs" />
     <Compile Include="BlockList\BlockReason.cs" />
+    <Compile Include="EntityTypesHelper.cs" />
     <Compile Include="Geo\City.cs" />
     <Compile Include="Geo\Country.cs" />
     <Compile Include="Geo\RegionState.cs" />

@@ -7,7 +7,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebPortal.Entities.BlockList {
-    [Table("BlockList", Schema = "dbo")]
+    [Table("BlockList")]
     public class BlockListEntry : BaseBusinessEntity{
 
         private BlockReason _blockReason;

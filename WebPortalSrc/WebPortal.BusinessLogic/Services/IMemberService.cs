@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WebPortal.BusinessLogic.DTOs;
+using WebPortal.BusinessLogic.DTOs.Queries;
 using WebPortal.BusinessLogic.Security;
 using WebPortal.Entities.Members;
 
@@ -12,7 +14,7 @@ namespace WebPortal.BusinessLogic.Services {
         /// </summary>
         /// <param name="memberId"></param>
         /// <returns></returns>
-        Member GetMemberById(int memberId);
+        MemberDto GetMemberById(int memberId);
 
         /// <summary>
         /// 
@@ -21,7 +23,7 @@ namespace WebPortal.BusinessLogic.Services {
         /// <returns></returns>
         Member GetMemberByEmail(string email);
 
-
+        IList<MemberDto> Search(SearchMembersQuery searchQuery);
         /// <summary>
         /// 
         /// </summary>

@@ -19,7 +19,33 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
         }
 
         private static void ResolveTableNames(){
-            
+            var entityTypesList = (from type in Assembly.GetAssembly(typeof (BaseEntity)).GetTypes()
+                                   where EntityTypesHelper.IsEntityType(type) && !type.IsAbstract
+                                   select type).ToList();
+
+            entityTypesList.ForEach(et => {
+                TableAttribute tableAttr = null;
+                if (!TryGetTableAttribute(et, out tableAttr)){
+                     // [TableAttribute] was not found for the current entity type
+                     throw new ArgumentException("<TableAttribute> was not found for type: " + et.Name);
+                }
+
+                TableNames.Add(et, tableAttr);
+            });
+        }
+
+        private static bool TryGetTableAttribute(Type entityType, out TableAttribute tableAttr){
+            var attributes = entityType.GetCustomAttributes(attributeType: typeof(TableAttribute),
+                                                            inherit: false);
+
+            if (attributes.Length < 1) {
+                // no TableAttribute was found in the current entity type
+                tableAttr = null;
+                return false;
+            }
+
+            tableAttr = (TableAttribute)attributes.First();
+            return true;
         }
 
 
@@ -129,9 +155,17 @@ namespace WebPortal.DataAccessLayer.Infrastructure.EntityOperations {
         }
 
 
-        public string GetTableName(Type entityType)
-        {
-            throw new NotImplementedException();
+        public string GetTableName(Type entityType){
+            // get name from cached collection of [TableAttribute]
+            if (entityType == null){
+                  throw new NullReferenceException("entityType");
+            }
+
+            if (!TableNames.ContainsKey(entityType)){
+                  throw new ArgumentException("Provided type is not entity type!"); 
+            }
+
+            return TableNames[entityType].Name;
         }
     }
 }

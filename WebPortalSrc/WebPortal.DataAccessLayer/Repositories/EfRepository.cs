@@ -24,10 +24,11 @@ namespace WebPortal.DataAccessLayer.Repositories {
         private readonly IDbContext                _dbContext;
         private readonly DbSet<T>                  _dbSet;
 
-        protected EfRepository(IDbContext dbContext){
+        public EfRepository(IDbContext dbContext){
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
             Log = LogManager.GetLogger(GetType().Name);
+            Log.Info("Repository created!");
         }
 
         protected DbSet<T> Set{
@@ -73,7 +74,7 @@ namespace WebPortal.DataAccessLayer.Repositories {
 
                 if (incProps != null){
                     // include properties
-                    IncludeEntityPropertiesInQuery(queryGetAll, incProps);
+                    IncludeEntityPropertiesInQuery(ref queryGetAll, incProps);
                 }
 
                 return queryGetAll.ToList();
@@ -93,7 +94,7 @@ namespace WebPortal.DataAccessLayer.Repositories {
                 // include entity related properties if needed
                 if (incProps != null){
                     // append related properties
-                    IncludeEntityPropertiesInQuery(query, incProps);
+                    IncludeEntityPropertiesInQuery(ref query, incProps);
                 }
 
               
@@ -187,12 +188,10 @@ namespace WebPortal.DataAccessLayer.Repositories {
             }
         }
 
-        protected void IncludeEntityPropertiesInQuery(IQueryable<T> query,
+        protected void IncludeEntityPropertiesInQuery(ref IQueryable<T> query,
                                                       params Expression<Func<T, object>>[] includedProperties){
             var incList = includedProperties.ToList();
-            incList.ForEach((incExpression) =>{
-                query = query.Include(incExpression);
-            });
+            query = incList.Aggregate(query, (current, selector) => current.Include(selector));
         }
 
         protected IEntityInfoResolver GetEntityInfoResolver(){

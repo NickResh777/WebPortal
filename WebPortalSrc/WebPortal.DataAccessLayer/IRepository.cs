@@ -18,7 +18,7 @@ namespace WebPortal.DataAccessLayer {
         /// <summary>
         /// Get all entities in the table
         /// </summary>
-        IList<T> GetAll(params Expression<Func<T, object>>[] incProps );
+        IList<T> GetAll(params Expression<Func<T, object>>[] incProps);
 
         /// <summary>
         /// 
