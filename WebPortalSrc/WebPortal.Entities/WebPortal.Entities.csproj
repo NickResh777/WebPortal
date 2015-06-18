@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\AppUser.cs" />
     <Compile Include="AuthInfo.cs" />
     <Compile Include="BaseBusinessEntity.cs" />
     <Compile Include="BaseEntity.cs" />

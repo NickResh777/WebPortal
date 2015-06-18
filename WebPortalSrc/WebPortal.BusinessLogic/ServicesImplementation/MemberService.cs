@@ -14,6 +14,7 @@ using System.Linq.Expressions;
 namespace WebPortal.BusinessLogic.ServicesImplementation
 {
     class MemberService: BaseService, IMemberService{
+        private readonly PredicateExpressionBuilder<Member> _predicateBuilder = new PredicateExpressionBuilder<Member>(); 
         private readonly IRepository<Member> _membersRepository;
         private readonly OnlineUsersStorage  _onlineStorage;
 
@@ -46,47 +47,43 @@ namespace WebPortal.BusinessLogic.ServicesImplementation
             throw new NotImplementedException();
         }
 
-        private void BuildPredicateExpression(PredicateExpressionBuilder<Member> expBuilder,
-            SearchMembersQuery searchQuery){
+        private void BuildPredicateExpression(SearchMembersQuery searchQuery){
                 if (searchQuery.CountryId.HasValue)
                 {
                     // append country
-                    expBuilder.And(member => (member.Profile.CountryId == searchQuery.CountryId.Value));
+                    _predicateBuilder.And(member => (member.Profile.CountryId == searchQuery.CountryId.Value));
                 }
 
                 if (searchQuery.RegionStateId.HasValue)
                 {
                     // append region/state
-                    expBuilder.And(member => member.Profile.RegionStateId == searchQuery.RegionStateId.Value);
+                    _predicateBuilder.And(member => member.Profile.RegionStateId == searchQuery.RegionStateId.Value);
                 }
 
                 if (searchQuery.CityId.HasValue)
                 {
                     // append city
-                    expBuilder.And(member => member.Profile.CityId == searchQuery.CityId.Value);
+                    _predicateBuilder.And(member => member.Profile.CityId == searchQuery.CityId.Value);
                 }
 
                 if (searchQuery.Gender != Gender.NotDefined)
                 {
                     // add gender filter
                     string genderValue = (searchQuery.Gender == Gender.Male) ? "M" : "F";
-                    expBuilder.And(member => member.Gender == genderValue);
+                    _predicateBuilder.And(member => member.Gender == genderValue);
                 }
 
             if (searchQuery.MaximalAge.HasValue){
                 // todo: FINISH this! 
-                expBuilder.And(m => m.Profile.DateOfBirth.HasValue);
-
+                _predicateBuilder.And(m => m.Profile.DateOfBirth.HasValue);
             }
         } 
 
         public IList<MemberDto> Search(SearchMembersQuery searchQuery){
-            PredicateExpressionBuilder<Member> predicateBuilder = new PredicateExpressionBuilder<Member>();
+            _predicateBuilder.Reset();
             // initialize predicates
-            BuildPredicateExpression(predicateBuilder, searchQuery);
-
-
-            var result = _membersRepository.GetWhere(predicateBuilder.GetExpression(), m => m.Profile);
+            BuildPredicateExpression(searchQuery);
+            var result = _membersRepository.GetWhere(_predicateBuilder.PredicateResult, m => m.Profile);
             return null;
         }
 

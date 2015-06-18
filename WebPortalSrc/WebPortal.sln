@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortal.DataAccessLayer",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortal.BusinessLogic", "WebPortal.BusinessLogic\WebPortal.BusinessLogic.csproj", "{8B8C867F-3BF3-4B21-8987-F57E79FFF1D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortal.WebUI", "WebPortal.WebUI\WebPortal.WebUI.csproj", "{3AF514A6-FEBB-4163-A298-720CF6E16549}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortal.Api", "WebPortal.Api\WebPortal.Api.csproj", "{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = WebPortal.vsmdi
@@ -76,6 +80,26 @@ Global
 		{8B8C867F-3BF3-4B21-8987-F57E79FFF1D3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8B8C867F-3BF3-4B21-8987-F57E79FFF1D3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8B8C867F-3BF3-4B21-8987-F57E79FFF1D3}.Release|x86.ActiveCfg = Release|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3AF514A6-FEBB-4163-A298-720CF6E16549}.Release|x86.ActiveCfg = Release|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BEC8A5C0-4AB5-4145-8287-E3DEEA88534F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

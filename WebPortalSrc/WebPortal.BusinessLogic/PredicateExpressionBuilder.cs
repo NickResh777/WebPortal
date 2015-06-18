@@ -34,9 +34,15 @@ namespace WebPortal.BusinessLogic
             return this;
         } 
 
-        public Expression<Func<TEntity, bool>> GetExpression(){
+        public Expression<Func<TEntity, bool>> PredicateResult{
+            get{
+                return _predicate;
+            }
+        }
 
-            return _predicate;
-        } 
+        public void Reset(){
+
+            _predicate = null;
+        }
     }
 }
