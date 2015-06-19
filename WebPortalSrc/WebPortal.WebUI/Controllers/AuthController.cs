@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebPortal.BusinessLogic.Services;
+using WebPortal.BusinessLogic.Services.Security;
 
 namespace WebPortal.WebUI.Controllers
 {

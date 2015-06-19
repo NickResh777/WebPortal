@@ -20,9 +20,12 @@ namespace WebPortal.BusinessLogic.OnlineUsers
 
         private readonly Hashtable _cacheOnline;  
         private readonly ManualResetEvent _removingExpiredEvent;
-        private Timer _timer;
-        private int _onlineEntryLifetimeSeconds;
+        private readonly Timer _timer;
+        private int _entryLifetimeSeconds;
         private int _timerDueTimeSeconds;
+
+        private const int DEFAULT_TIMER_DUE_TIME = 30;
+        private const int DEFAULT_ENTRY_LIFETIME = 15; // 15 seconds
 
      
 
@@ -32,32 +35,42 @@ namespace WebPortal.BusinessLogic.OnlineUsers
             _removingExpiredEvent = new ManualResetEvent(false);
             _timer = new Timer(callback: RemoveExpiredEntriesCallback,
                                state: null,
-                               dueTime: TimeSpan.FromSeconds(30.00), 
-                               period: TimeSpan.FromSeconds(_onlineEntryLifetimeSeconds)
+                               dueTime: TimeSpan.FromSeconds(_timerDueTimeSeconds), 
+                               period: TimeSpan.FromSeconds(_entryLifetimeSeconds)
              );
         }
 
         private void SetTimeConfiguratedValues(){
-                  ConfigurationManager
+            try{
+                var config = (OnlineUsersStorageConfigSection) ConfigurationManager.GetSection("onlineUsersStorage");
+                _timerDueTimeSeconds = config.TimeDueTimeSeconds;
+                _entryLifetimeSeconds = config.EntryLifetimeInSeconds;
+            } catch{
+                _timerDueTimeSeconds = DEFAULT_TIMER_DUE_TIME;
+                _entryLifetimeSeconds = DEFAULT_ENTRY_LIFETIME;
+            }   
         }
 
         private void RemoveExpiredEntriesCallback(object state){
             // block other threads
             _removingExpiredEvent.Reset();
 
-            var entiesToRemoveList = new List<OnlineUserEntry>();
 
-            foreach (var entryKey in _cacheOnline.Keys){
-               OnlineUserEntry entry = (OnlineUserEntry) _cacheOnline[entryKey];
-               if (IsExpired(entry)){
-                  // remove entry if it exceeded its lifetime
-                  entiesToRemoveList.Add(entry);
-               }
-            }
+            lock (_entriesLock){
+                var entiesToRemoveList = new List<OnlineUserEntry>();
 
-            if (entiesToRemoveList.Any()){
-                 // remove the expired entries
-                 entiesToRemoveList.ForEach( ouEntry => _cacheOnline.Remove(ouEntry));
+                foreach(var entryKey in _cacheOnline.Keys){
+                    OnlineUserEntry entry = (OnlineUserEntry) _cacheOnline[entryKey];
+                    if (IsExpired(entry)){
+                        // remove entry if it exceeded its lifetime
+                        entiesToRemoveList.Add(entry);
+                    }
+                }
+
+                if (entiesToRemoveList.Any()){
+                    // remove the expired entries
+                    entiesToRemoveList.ForEach(ouEntry => _cacheOnline.Remove(ouEntry));
+                }
             }
 
             // notify other threads
@@ -86,8 +99,8 @@ namespace WebPortal.BusinessLogic.OnlineUsers
         }
 
         private bool IsExpired(OnlineUserEntry entry){
-            DateTime expireDt = entry.OnlineSince.AddSeconds(_onlineEntryLifetimeSeconds);
-            return expireDt < DateTime.Now;
+            DateTime expireDt = entry.OnlineSince.AddSeconds(_entryLifetimeSeconds);
+            return (expireDt < DateTime.Now);
         }
     }
 }
