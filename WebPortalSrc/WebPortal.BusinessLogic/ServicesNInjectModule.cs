@@ -7,7 +7,7 @@ using WebPortal.BusinessLogic.ServicesImplementation;
 using Ninject.Modules;
 
 namespace WebPortal.BusinessLogic {
-    public class ServicesInjectModule: NinjectModule {
+    public class ServicesNInjectModule: NinjectModule {
         public override void Load(){
             Bind<IHotListService>().To<HotListService>();
         }

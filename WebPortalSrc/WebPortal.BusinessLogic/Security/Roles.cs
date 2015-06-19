@@ -6,8 +6,8 @@ using System.Text;
 namespace WebPortal.BusinessLogic.Security
 {
     public static class Roles{
-        public const string ROLE_GUEST = "guest";
-        public const string ROLE_MEMBER = "member";
-        public const string ROLE_ADMIN = "admin";
+        public const string RoleGuest = "guest";
+        public const string RoleMember = "member";
+        public const string RoleAdmin = "admin";
     }
 }

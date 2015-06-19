@@ -39,5 +39,14 @@ namespace DatingHeaven.Core
        
             return _nInjectKernel.Get<T>();
         }
+
+        public object Get(Type serviceType){
+            if (_nInjectKernel == null) {
+                    // cannot get any registered type cause Kernel is not defined
+                    throw new NullReferenceException("Injection Kernel is not defined!");
+            }
+
+            return _nInjectKernel.Get(serviceType);
+        }
     }
 }

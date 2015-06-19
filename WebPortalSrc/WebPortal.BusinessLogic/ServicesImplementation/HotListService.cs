@@ -11,7 +11,7 @@ using WebPortal.Entities;
 using WebPortal.Entities.Members;
 
 namespace WebPortal.BusinessLogic.ServicesImplementation {
-    class HotListService : BaseService, IHotListService{
+    class HotListService :  IHotListService{
         private readonly IRepository<HotListEntry> _repoHotListEntries;
         private readonly IMemberNotificationService _memberNotifier;
         

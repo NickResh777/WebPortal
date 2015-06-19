@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="AutoMapConverters\MemberMemberDtoConverter.cs" />
     <Compile Include="AutoMapRegistrations.cs" />
-    <Compile Include="BaseService.cs" />
     <Compile Include="DTOs\BaseDto.cs" />
     <Compile Include="DTOs\HotListEntryDto.cs" />
     <Compile Include="DTOs\MemberDto.cs" />
@@ -87,11 +86,12 @@
     <Compile Include="Security\WebPortalPrincipal.cs" />
     <Compile Include="ServiceResponse.cs" />
     <Compile Include="ServicesImplementation\AuthenticationService.cs" />
-    <Compile Include="ServicesImplementation\Auth\LogInResult.cs" />
+    <Compile Include="ServicesImplementation\Auth\LogInFailReason.cs" />
+    <Compile Include="ServicesImplementation\Auth\AuthenticationResult.cs" />
     <Compile Include="ServicesImplementation\HotListService.cs" />
     <Compile Include="ServicesImplementation\MemberService.cs" />
-    <Compile Include="ServicesImplementation\PasswordHasher.cs" />
-    <Compile Include="ServicesInjectModule.cs" />
+    <Compile Include="ServicesImplementation\Sha256PasswordHasher.cs" />
+    <Compile Include="ServicesNInjectModule.cs" />
     <Compile Include="Services\Security\HashingAlgorithm.cs" />
     <Compile Include="Services\Security\HashingAlgorithmsFactory.cs" />
     <Compile Include="Services\Security\IAuthenticationService.cs" />

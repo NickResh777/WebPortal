@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Cryptography;
 using DatingHeaven.Core;
-using JetBrains.Annotations;
-using Ninject;
 using NLog;
 using WebPortal.DataAccessLayer.FluentSyntax;
-using WebPortal.DataAccessLayer.Infrastructure;
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations;
-using WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerators;
 using WebPortal.Entities;
 
-namespace WebPortal.DataAccessLayer.Repositories {
+namespace WebPortal.DataAccessLayer {
     public class EfRepository<T> : IRepository<T> where T : BaseEntity{
         protected Logger Log;
 
@@ -209,7 +203,7 @@ namespace WebPortal.DataAccessLayer.Repositories {
         }
 
 
-        public int SaveChanges(){
+        public int SaveSetChanges(){
             try{
                 return _dbContext.SaveChanges();
             } catch (Exception ex){

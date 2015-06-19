@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalInjectionContainer.cs" />
-    <Compile Include="IDebug.cs" />
     <Compile Include="Interfaces\ICacheManager.cs" />
     <Compile Include="Interfaces\IWorkingContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

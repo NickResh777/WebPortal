@@ -90,7 +90,7 @@
     <Compile Include="Mapping\ProfileAttributeValueMap.cs" />
     <Compile Include="Mapping\ProfileMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\EfRepository.cs" />
+    <Compile Include="EfRepository.cs" />
     <Compile Include="Infrastructure\EntityOperations\SqlGenerators\SelectEntitySqlGenerator.cs" />
     <Compile Include="FluentSyntax\FluentSyntaxForEntityProperty.cs" />
     <Compile Include="EntityPropertySelectionAnalyzer.cs" />

@@ -10,9 +10,9 @@ namespace WebPortal.BusinessLogic.Services.Security {
         /// <summary>
         /// Get hash of the 
         /// </summary>
+        /// <param name="passwordSalt"></param>
         /// <param name="plainPassword"></param>
-        /// <param name="hashAlgorithm"></param>
         /// <returns></returns>
-        string ToHash(string plainPassword, HashingAlgorithm hashAlgorithm);
+        string ToHash(string passwordSalt, string plainPassword);
     }
 }

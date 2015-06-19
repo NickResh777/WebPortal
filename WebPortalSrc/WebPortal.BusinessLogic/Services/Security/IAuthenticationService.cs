@@ -1,19 +1,25 @@
 ﻿using WebPortal.BusinessLogic.ServicesImplementation.Auth;
 
 namespace WebPortal.BusinessLogic.Services.Security {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IAuthenticationService{
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="nickName"></param>
+        /// <param name="userProperty"></param>
         /// <param name="password"></param>
-        /// <param name="loginProvider"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        LogInResult LogIn(string nickName, string password, ILogInProvider loginProvider);
+        AuthenticationResult AuthenticateUserByEmail(string email, string password);
 
-        // todo: finish this
-       // LogInResult LogIn(string name);
-
-        void LogOut();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        AuthenticationResult AuthenticateUserByName(string name, string password);
     }
 }

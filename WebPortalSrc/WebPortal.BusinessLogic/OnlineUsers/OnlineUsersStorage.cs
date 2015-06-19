@@ -17,7 +17,7 @@ namespace WebPortal.BusinessLogic.OnlineUsers
         private readonly object _entriesLock = new object();
         private          Hashtable _store;  
         private readonly ManualResetEvent _expiredEntriesRemovedEvent;
-        private readonly ManualResetEvent _timerDisposedEvent;
+   
         private readonly Timer _timer;
         private int _entryLifetimeInSeconds;
         private int _timerDueTimeInSeconds;
@@ -31,7 +31,6 @@ namespace WebPortal.BusinessLogic.OnlineUsers
             SetTimeConfiguratedValues();
             _store = new Hashtable();
             _expiredEntriesRemovedEvent = new ManualResetEvent(true);
-            _timerDisposedEvent = new ManualResetEvent(true);
             _timer = new Timer(callback: RemoveExpiredEntriesCallback,
                                state: null,
                                dueTime: TimeSpan.FromSeconds(_timerDueTimeInSeconds), 
@@ -52,34 +51,32 @@ namespace WebPortal.BusinessLogic.OnlineUsers
 
         private void RemoveExpiredEntriesCallback(object state){
             // stop the timer
-            _timer.Change(Timeout.Infinite, Timeout.Infinite);
-            // block other threads
-            _expiredEntriesRemovedEvent.Reset();
-
-            DateTime now = DateTime.Now;
-
+            StopTimerResetEvent();
+          
             lock (_entriesLock){
-                    // if not yet disposed
-                    var expiredEntriesList = new List<OnlineUserEntry>();
+                if (_store != null){
+                        DateTime now = DateTime.Now;
+                        // if not yet disposed
+                        var expiredEntriesList = new List<OnlineUserEntry>();
 
-                    foreach (var entryKey in _store.Keys){
-                        OnlineUserEntry entry = (OnlineUserEntry) _store[entryKey];
-                        if (IsExpired(entry, now)){
-                            // remove entry if it exceeded its lifetime
-                            expiredEntriesList.Add(entry);
+                        foreach (var entryKey in _store.Keys){
+                            OnlineUserEntry entry = (OnlineUserEntry) _store[entryKey];
+                            if (IsExpired(entry, now)){
+                                // remove entry if it exceeded its lifetime
+                                expiredEntriesList.Add(entry);
+                            }
                         }
-                    }
 
-                    if (expiredEntriesList.Any()){
-                        // remove the expired entries
-                        expiredEntriesList.ForEach(ouEntry => _store.Remove(ouEntry));
-                    }
+                        if (expiredEntriesList.Any()){
+                            // remove the expired entries
+                            expiredEntriesList.ForEach(ouEntry => _store.Remove(ouEntry));
+                        }
+                }
             }
 
-            // notify other threads
-            _expiredEntriesRemovedEvent.Set();
-            // restart the timer 
-            _timer.Change(TimeSpan.FromMilliseconds(0.00), TimeSpan.FromSeconds(_entryLifetimeInSeconds));
+            // restart the timer and notify waiting threads that 
+            // the expired entries have been deleted
+            StartTimerSetEvent();
         }
 
         public void SetUserOnline(OnlineUserEntry entry){
@@ -102,7 +99,7 @@ namespace WebPortal.BusinessLogic.OnlineUsers
 
             lock (_entriesLock){
                 if (_store != null){
-                      // this object is not disposed
+                      // if the current object is yet not disposed
                       DateTime now = DateTime.Now;
                       OnlineUserEntry uEntry = (OnlineUserEntry) _store[entry.MemberId];
                       return (uEntry != null) && !IsExpired(uEntry, now);
@@ -133,34 +130,38 @@ namespace WebPortal.BusinessLogic.OnlineUsers
             return (expireTime < nowTime);
         }
 
+        private void StopTimerResetEvent(){
+            // set timer's wait & period time to infinity
+            _timer.Change(dueTime: Timeout.Infinite, 
+                           period: Timeout.Infinite);
+            // block other threads
+            _expiredEntriesRemovedEvent.Reset();
+        }
+
+        private void StartTimerSetEvent(){
+             // set event so that waiting threads could continue execution 
+            _expiredEntriesRemovedEvent.Set();
+             // set timer due time to 15 secs so it would fire after 15 seconds
+            _timer.Change(dueTime: TimeSpan.FromSeconds(_entryLifetimeInSeconds), 
+                           period: TimeSpan.FromSeconds(_entryLifetimeInSeconds));
+        }
+
         public void Dispose(){
              // wait until expired entries are deleted 
             _expiredEntriesRemovedEvent.WaitOne();
 
-            // block other threads waiting in the start of method execution
-            _expiredEntriesRemovedEvent.Reset();
-
             lock (_entriesLock){
-                  // disposing the timer
-                  _timer.Dispose(_timerDisposedEvent);
-                  //wait until timer is disposed
-                  _timerDisposedEvent.WaitOne();
-
+                    // disposing the timer
+                   _timer.Dispose();
                    // clear the cache
                    _store.Clear();
                    _store = null;
-                   // dispose the timer event of dispose
-                   _timerDisposedEvent.Close();
-
-                   _expiredEntriesRemovedEvent.Set();
             }
 
             // CANNOT dispose the _expiredEntriesRemovedEvent
-            // cause 
-        }
-
-        private void WaitForExpiredEntriesRemovedEvent(){
-            
+            // cause it would throw exception and to handle the exception
+            // is performance critical issue
+            // CANNOT use TRY here
         }
     }
 }

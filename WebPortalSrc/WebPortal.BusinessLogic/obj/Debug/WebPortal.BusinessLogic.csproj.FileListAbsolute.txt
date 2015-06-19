@@ -89,3 +89,4 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Busin
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\DatingHeaven.Core.pdb
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\obj\Debug\WebPortal.BusinessLogic.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\obj\Debug\WebPortal.BusinessLogic.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.BusinessLogic\bin\Debug\WebPortal.BusinessLogic.dll.config

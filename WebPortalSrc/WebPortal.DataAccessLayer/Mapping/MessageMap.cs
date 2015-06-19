@@ -8,7 +8,7 @@ using WebPortal.Entities;
 using DatingHeaven.Core;
 
 namespace WebPortal.DataAccessLayer.Mapping {
-   class MessageMap : EntityTypeConfiguration<Message>, IDebug{
+   class MessageMap : EntityTypeConfiguration<Message>{
         public MessageMap(){
             ToTable("Messages");
             HasKey(m => m.Id);

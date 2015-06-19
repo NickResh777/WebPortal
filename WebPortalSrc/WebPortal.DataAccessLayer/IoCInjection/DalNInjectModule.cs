@@ -1,7 +1,6 @@
 ﻿using Ninject.Modules;
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations;
 using WebPortal.DataAccessLayer.Infrastructure.EntityOperations.SqlGenerators;
-using WebPortal.DataAccessLayer.Repositories;
 
 
 namespace WebPortal.DataAccessLayer.IoCInjection {

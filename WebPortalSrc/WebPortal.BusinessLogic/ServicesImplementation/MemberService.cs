@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 
 namespace WebPortal.BusinessLogic.ServicesImplementation
 {
-    class MemberService: BaseService, IMemberService{
+    class MemberService:  IMemberService{
         private readonly PredicateExpressionBuilder<Member> _predicateBuilder = new PredicateExpressionBuilder<Member>(); 
         private readonly IRepository<Member> _membersRepository;
         private readonly OnlineUsersStorage  _onlineStorage;
@@ -48,39 +48,36 @@ namespace WebPortal.BusinessLogic.ServicesImplementation
         }
 
         private void BuildPredicateExpression(SearchMembersQuery searchQuery){
-                if (searchQuery.CountryId.HasValue)
-                {
+                _predicateBuilder.Reset();
+                
+                if (searchQuery.CountryId.HasValue) {
                     // append country
                     _predicateBuilder.And(member => (member.Profile.CountryId == searchQuery.CountryId.Value));
                 }
 
-                if (searchQuery.RegionStateId.HasValue)
-                {
+                if (searchQuery.RegionStateId.HasValue){
                     // append region/state
                     _predicateBuilder.And(member => member.Profile.RegionStateId == searchQuery.RegionStateId.Value);
                 }
 
-                if (searchQuery.CityId.HasValue)
-                {
+                if (searchQuery.CityId.HasValue){
                     // append city
                     _predicateBuilder.And(member => member.Profile.CityId == searchQuery.CityId.Value);
                 }
 
-                if (searchQuery.Gender != Gender.NotDefined)
-                {
+                if (searchQuery.Gender != Gender.NotDefined){
                     // add gender filter
                     string genderValue = (searchQuery.Gender == Gender.Male) ? "M" : "F";
                     _predicateBuilder.And(member => member.Gender == genderValue);
                 }
 
-            if (searchQuery.MaximalAge.HasValue){
-                // todo: FINISH this! 
-                _predicateBuilder.And(m => m.Profile.DateOfBirth.HasValue);
-            }
+                if (searchQuery.MaximalAge.HasValue){
+                    // todo: FINISH this! 
+                    _predicateBuilder.And(m => m.Profile.DateOfBirth.HasValue);
+                }
         } 
 
         public IList<MemberDto> Search(SearchMembersQuery searchQuery){
-            _predicateBuilder.Reset();
             // initialize predicates
             BuildPredicateExpression(searchQuery);
             var result = _membersRepository.GetWhere(_predicateBuilder.PredicateResult, m => m.Profile);

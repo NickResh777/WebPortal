@@ -80,6 +80,6 @@ namespace WebPortal.DataAccessLayer {
         /// 
         /// </summary>
         /// <returns></returns>
-        int SaveChanges();
+        int SaveSetChanges();
     }
 }

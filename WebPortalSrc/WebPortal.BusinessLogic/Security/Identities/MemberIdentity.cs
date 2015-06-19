@@ -29,7 +29,10 @@ namespace WebPortal.BusinessLogic.Security.Identities
         public bool IsAuthenticated
         {
             get{
-                return MemberId != 0;
+                // always true since the principal has this 
+                // identity [MemberIdentity] which means
+                // the principal's identity is yet non-guest
+                return true;             
             }
         }
 

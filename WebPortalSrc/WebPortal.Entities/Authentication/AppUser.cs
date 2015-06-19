@@ -41,7 +41,7 @@ namespace WebPortal.Entities.Authentication
         /// <summary>
         /// 
         /// </summary>
-        public string PasswordSalt { get; set; }
+        public Guid PasswordSalt { get; set; }
 
         /// <summary>
         /// 

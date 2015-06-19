@@ -5,18 +5,18 @@ using WebPortal.DataAccessLayer;
 using WebPortal.Entities;
 
 namespace WebPortal.BusinessLogic.ServicesImplementation {
-    class MessageService : BaseService, IMessageService{
-        private readonly IRepository<Message> _messagesRepo;
+    class MessageService :  IMessageService{
+        private readonly IRepository<Message> _repoMessages;
 
-        public MessageService(IRepository<Message> messagesRepository,
-                               IEntityOperationsProvider entityContextProvider): 
-            base(entityContextProvider){
-                   _messagesRepo = messagesRepository;
+        public MessageService(IRepository<Message> messagesRepository){
+
+       
+            _repoMessages = messagesRepository;
         }  
 
 
         public Message GetMessageById(int messageId){
-            return _messagesRepo.GetById(messageId);
+            return _repoMessages.GetById(messageId);
         }
 
         public IList<Message> GetUnreadMessages(int userId){
@@ -36,9 +36,7 @@ namespace WebPortal.BusinessLogic.ServicesImplementation {
         }
 
         public void SetMessageAsRead(int userId, int messageId) {
-            if (EntityOperations != null){
-                  EntityOperations.SetPropertyValue<Message>(messageId, "IsRead", true);
-            }
+           
         }
     }
 }

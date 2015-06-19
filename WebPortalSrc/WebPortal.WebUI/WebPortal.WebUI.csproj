@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -159,15 +160,21 @@
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\InjectionContainerConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AuthCookieBuilder.cs" />
+    <Compile Include="Binders\LogInModelBinder.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\SerializedAuthTicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebPortalControllerFactory.cs" />
+    <Compile Include="WebUINInjectModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -295,6 +302,14 @@
     <ProjectReference Include="..\WebPortal.Core\WebPortal.Common.csproj">
       <Project>{5EDCF264-5505-42C5-B983-DE0AAFB28BF3}</Project>
       <Name>WebPortal.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebPortal.DataAccessLayer\WebPortal.DataAccessLayer.csproj">
+      <Project>{36DE29DF-ECC4-4C8B-BDCD-A679DABFD2FE}</Project>
+      <Name>WebPortal.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebPortal.Entities\WebPortal.Entities.csproj">
+      <Project>{B663A26A-A35B-41D1-953E-8CDD92872EAE}</Project>
+      <Name>WebPortal.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
