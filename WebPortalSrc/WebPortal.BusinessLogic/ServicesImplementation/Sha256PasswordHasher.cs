@@ -7,16 +7,19 @@ using System.Text;
 using WebPortal.BusinessLogic.Services.Security;
 
 namespace WebPortal.BusinessLogic.ServicesImplementation {
-    class Sha256PasswordHasher : IPasswordHasher{
-        private const string SaltPasswordFormat = "{0}_{1}";
+    public class Sha256PasswordHasher : IPasswordHasher{
+        private const string SaltedPasswordFormat = "{0}_{1}";
 
-        public Sha256PasswordHasher(){
-            
-        }
+        public string PasswordToHash(string plainPassword, string passwordSalt = null) {
+            if (string.IsNullOrEmpty(plainPassword)){   
+                  // cannot hash an empty string
+                  throw new ArgumentException("<plainPassword> parameter is empty");
+            }
 
-        public string ToHash(string passwordSalt, string plainPassword) {
             using (SHA256 hash = SHA256.Create()){
-                string joinedPass = string.Format(SaltPasswordFormat, passwordSalt, plainPassword);
+                string joinedPass = !string.IsNullOrEmpty(passwordSalt)
+                    ? string.Format(SaltedPasswordFormat, passwordSalt, plainPassword)
+                    : plainPassword;
                 byte[] passwordInBytes = Encoding.UTF8.GetBytes(joinedPass);
                 byte[] passwordHash = hash.ComputeHash(passwordInBytes);
                 return ToHash(passwordHash);

@@ -4,7 +4,7 @@ namespace WebPortal.BusinessLogic.Services.Security {
     /// <summary>
     /// 
     /// </summary>
-    public interface IAuthenticationService{
+    public interface IApplicationUserService{
         /// <summary>
         /// 
         /// </summary>
@@ -12,7 +12,7 @@ namespace WebPortal.BusinessLogic.Services.Security {
         /// <param name="password"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        AuthenticationResult AuthenticateUserByEmail(string email, string password);
+        AuthenticationResult AuthenticateByEmail(string email, string password);
 
         /// <summary>
         /// 
@@ -20,6 +20,6 @@ namespace WebPortal.BusinessLogic.Services.Security {
         /// <param name="name"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        AuthenticationResult AuthenticateUserByName(string name, string password);
+        AuthenticationResult AuthenticateByName(string name, string password);
     }
 }

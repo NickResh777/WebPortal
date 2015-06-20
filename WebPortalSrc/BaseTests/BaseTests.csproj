@@ -52,6 +52,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -63,6 +64,9 @@
     <Compile Include="PredicateExpressionBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryTests.cs" />
+    <Compile Include="Security\AesCryptoTests.cs" />
+    <Compile Include="Security\PasswordHasherTests.cs" />
+    <Compile Include="Security\ValueEncryptorsTests.cs" />
     <Compile Include="ServiceTest\MemberServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>

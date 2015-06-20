@@ -5,10 +5,11 @@ using System.Text;
 
 namespace WebPortal.BusinessLogic.ServicesImplementation.Auth
 {
-    public enum LogInFailReason
+    public enum AuthFailReason
     {
         NoError = 0,
-        UserByNameNotFound,
+        UserNotFoundByName,
+        UserNotFoundByEmal,
         InvalidEmail,
         InvalidPassword
     }

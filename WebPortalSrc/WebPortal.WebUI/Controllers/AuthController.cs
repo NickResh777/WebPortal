@@ -8,17 +8,22 @@ using System.Web.Security;
 using WebPortal.BusinessLogic.Services;
 using WebPortal.BusinessLogic.Services.Security;
 using WebPortal.BusinessLogic.ServicesImplementation.Auth;
+using WebPortal.DataAccessLayer;
 using WebPortal.Entities.Authentication;
 using WebPortal.WebUI.Models;
 
 namespace WebPortal.WebUI.Controllers
 {
     public class AuthController : BaseController{
-        private readonly IAuthenticationService _authService;
+        private readonly IApplicationUserService _authService;
+        private readonly IRepository<AppUser> _repoAppUsers; 
         private readonly Regex _emailRegex;
 
-        public AuthController(IAuthenticationService authService){
+
+        public AuthController(IApplicationUserService authService,
+                              IRepository<AppUser> appUsersRepository){
             _authService = authService;
+            _repoAppUsers = appUsersRepository;
         }
 
 
@@ -31,19 +36,25 @@ namespace WebPortal.WebUI.Controllers
 
         [HttpPost]
         [ActionName("login")]
-        public ActionResult LogIn(LogInModel loginModel){
-            AuthenticationResult logInResult;
-            logInResult = _authService.AuthenticateUserByEmail(loginModel.Name, loginModel.Password);
-            if (logInResult.IsAuthenticated && (logInResult.AuthenticatedUser != null)){
-                // save auth cookie
-                SaveAppUserInAuthCookie(logInResult.AuthenticatedUser);    
-            }
+        public ActionResult LogIn(LogInModel logInModel){
+            
+            
 
             return View();
         }
 
-        private void SaveAppUserInAuthCookie(AppUser appUser){
-            
+        
+
+       
+
+        private void UpdateLastLoggedInProperty(AppUser appUser){
+            appUser.LastLoggedInOn = DateTime.Now;
+            _repoAppUsers.Refresh(appUser);
+            _repoAppUsers.SaveSetChanges();
         }
+
+       
+
+     
     }
 }

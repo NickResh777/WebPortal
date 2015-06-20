@@ -48,7 +48,9 @@ namespace WebPortal.Entities.Authentication
         /// </summary>
         public string PasswordHash { get; set; }
 
-        // 
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime? LastLoggedInOn { get; set; }
 
         /// <summary>

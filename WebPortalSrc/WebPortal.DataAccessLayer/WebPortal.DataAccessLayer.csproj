@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IoCInjection\DalNInjectModule.cs" />
+    <Compile Include="Mapping\AppUserMap.cs" />
     <Compile Include="WebPortalDbContext.cs" />
     <Compile Include="DbContextProvider.cs" />
     <Compile Include="FluentSyntax\IFluentSyntax.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="Infrastructure\EntityOperations\UpdatePropertySqlQueryGenerator.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="LogicalOperation.cs" />
-    <Compile Include="Mapping\AuthInfoMap.cs" />
     <Compile Include="Mapping\Geo\CityMap.cs" />
     <Compile Include="Mapping\Geo\CountryMap.cs" />
     <Compile Include="Mapping\Geo\RegionStateMap.cs" />

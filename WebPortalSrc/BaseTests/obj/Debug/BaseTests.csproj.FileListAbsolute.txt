@@ -42,7 +42,6 @@ C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\BaseTests\
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\BaseTests\obj\Debug\BaseTests.csprojResolveAssemblyReference.cache
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\BaseTests\obj\Debug\BaseTests.dll
 C:\Users\Valeriy\Documents\GitHub\WebPortal\DatingHeaven\WebPortalSrc\BaseTests\obj\Debug\BaseTests.pdb
-C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\obj\Debug\BaseTests.csprojResolveAssemblyReference.cache
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\BaseTests.dll.config
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\BaseTests.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\BaseTests.pdb
@@ -54,6 +53,7 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\D
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\WebPortal.BusinessLogic.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\WebPortal.DataAccessLayer.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\WebPortal.Entities.dll
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\AutoMapper.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\Quartz.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\NLog.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\Common.Logging.Core.dll
@@ -66,6 +66,8 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\D
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\Ninject.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\nunit.framework.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\AutoMapper.pdb
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\AutoMapper.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\Quartz.pdb
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\Quartz.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\NLog.xml
@@ -73,8 +75,6 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\D
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\Common.Logging.Core.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\Common.Logging.pdb
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\Common.Logging.xml
+C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\obj\Debug\BaseTests.csprojResolveAssemblyReference.cache
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\obj\Debug\BaseTests.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\obj\Debug\BaseTests.pdb
-C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\AutoMapper.dll
-C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\AutoMapper.pdb
-C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\BaseTests\bin\Debug\AutoMapper.xml

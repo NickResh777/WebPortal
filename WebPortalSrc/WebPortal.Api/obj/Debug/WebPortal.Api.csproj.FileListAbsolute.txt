@@ -50,4 +50,3 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Api\b
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Api\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Api\obj\Debug\WebPortal.Api.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Api\obj\Debug\WebPortal.Api.pdb
-C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Api\obj\Debug\WebPortal.Api.csprojResolveAssemblyReference.cache

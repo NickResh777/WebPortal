@@ -44,11 +44,11 @@ namespace WebPortal.DataAccessLayer.Mapping {
                 HasColumnName("LastVisit").
                 IsOptional();
 
-            Property(m => m.Gender).
-                IsRequired().
-                HasColumnName("Gender").
-                HasMaxLength(1).
-                HasColumnType("char");
+            Property(m => m.Gender)
+                .IsRequired()
+                .HasColumnName("Gender")
+                .HasColumnType("char")
+                .HasMaxLength(1);
 
             
             

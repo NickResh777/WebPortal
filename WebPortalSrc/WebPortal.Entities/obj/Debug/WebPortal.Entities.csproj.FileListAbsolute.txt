@@ -31,4 +31,3 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entit
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\bin\Debug\Ninject.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\obj\Debug\WebPortal.Entities.dll
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\obj\Debug\WebPortal.Entities.pdb
-C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.Entities\obj\Debug\WebPortal.Entities.csprojResolveAssemblyReference.cache

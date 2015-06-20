@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using WebPortal.Entities.Authentication;
 using WebPortal.Entities.Members;
 
 namespace WebPortal.Entities.Members {
@@ -15,26 +16,26 @@ namespace WebPortal.Entities.Members {
             IsVip = false;
         }
 
-        public string NickName{
-            get; 
-            set; 
-        }
+        /// <summary>
+        ///  Login name of the member
+        /// </summary>
+       public string NickName { get; set; }
 
-        public string FirstName{
-            get; 
-            set; 
-        }
+       /// <summary>
+       /// First name of the member if provided (can be NULL)
+       /// </summary>
+       public string FirstName { get; set; }
 
-        public string LastName{
-            get; 
-            set;
-        }
+       /// <summary>
+       /// Last name of the member if provided (can be NULL)
+       /// </summary>
+       public string LastName { get; set; }
 
-        
-        public string Gender{
-            get; 
-            set;                                                             
-        }
+       /// <summary>
+       /// Gender of the member. A single-symbol value
+       /// 'F' - female, 'M' - male
+       /// </summary>
+       public string Gender { get; set; }
 
         
         public bool IsTrial{
@@ -78,7 +79,7 @@ namespace WebPortal.Entities.Members {
             set; 
         }
 
-        public virtual AuthInfo AuthInfo{
+        public virtual AppUser AppUser{
             get; 
             set; 
         }

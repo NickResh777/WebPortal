@@ -8,11 +8,11 @@ using System.Text;
 namespace WebPortal.BusinessLogic.Services.Security {
     public interface IPasswordHasher{
         /// <summary>
-        /// Get hash of the 
+        /// Get hash of the password
         /// </summary>
         /// <param name="passwordSalt"></param>
         /// <param name="plainPassword"></param>
         /// <returns></returns>
-        string ToHash(string passwordSalt, string plainPassword);
+        string PasswordToHash(string plainPassword, string passwordSalt = null);
     }
 }

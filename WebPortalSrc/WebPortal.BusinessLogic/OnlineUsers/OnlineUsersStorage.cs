@@ -17,6 +17,7 @@ namespace WebPortal.BusinessLogic.OnlineUsers
         private readonly object _entriesLock = new object();
         private          Hashtable _store;  
         private readonly ManualResetEvent _expiredEntriesRemovedEvent;
+        private readonly ManualResetEvent _timerDisposedEvent;
    
         private readonly Timer _timer;
         private int _entryLifetimeInSeconds;
@@ -31,6 +32,7 @@ namespace WebPortal.BusinessLogic.OnlineUsers
             SetTimeConfiguratedValues();
             _store = new Hashtable();
             _expiredEntriesRemovedEvent = new ManualResetEvent(true);
+            _timerDisposedEvent = new ManualResetEvent(true);
             _timer = new Timer(callback: RemoveExpiredEntriesCallback,
                                state: null,
                                dueTime: TimeSpan.FromSeconds(_timerDueTimeInSeconds), 
@@ -131,19 +133,29 @@ namespace WebPortal.BusinessLogic.OnlineUsers
         }
 
         private void StopTimerResetEvent(){
-            // set timer's wait & period time to infinity
-            _timer.Change(dueTime: Timeout.Infinite, 
-                           period: Timeout.Infinite);
-            // block other threads
-            _expiredEntriesRemovedEvent.Reset();
+            try{
+                // set timer's wait & period time to infinity to stop it
+                _timer.Change(dueTime: Timeout.Infinite,
+                               period: Timeout.Infinite);
+                _expiredEntriesRemovedEvent.Reset();
+            } catch(ObjectDisposedException ex){
+                // timer is probably disposed
+                // release other waiting threas so
+                // they could execute the last time
+                _expiredEntriesRemovedEvent.Set();
+            }
         }
 
         private void StartTimerSetEvent(){
-             // set event so that waiting threads could continue execution 
-            _expiredEntriesRemovedEvent.Set();
-             // set timer due time to 15 secs so it would fire after 15 seconds
-            _timer.Change(dueTime: TimeSpan.FromSeconds(_entryLifetimeInSeconds), 
-                           period: TimeSpan.FromSeconds(_entryLifetimeInSeconds));
+            try{
+                // set event so that waiting threads could continue execution 
+                _expiredEntriesRemovedEvent.Set();
+                // set timer due time to 15 secs so it would fire after 15 seconds
+                _timer.Change(dueTime: TimeSpan.FromSeconds(_entryLifetimeInSeconds),
+                               period: TimeSpan.FromSeconds(_entryLifetimeInSeconds));
+            } catch (ObjectDisposedException ex){
+                
+            }
         }
 
         public void Dispose(){
@@ -152,10 +164,16 @@ namespace WebPortal.BusinessLogic.OnlineUsers
 
             lock (_entriesLock){
                     // disposing the timer
-                   _timer.Dispose();
+                   _timer.Dispose(_timerDisposedEvent);
+
+                   // wait until the timer is disposed
+                   _timerDisposedEvent.WaitOne();
                    // clear the cache
                    _store.Clear();
                    _store = null;
+
+                  // dispose the event
+                  _timerDisposedEvent.Close();
             }
 
             // CANNOT dispose the _expiredEntriesRemovedEvent
