@@ -53,12 +53,19 @@ namespace WebPortal.WebUI.Services
 
         private SerializedAppUserModel EncryptAppUserModel(AppUser appUser){
             var model = new SerializedAppUserModel();
+
+            // Set application user ID
+            // Since the current application user 
+            // is a member or an admin, 
+            // then [AppUserId] must be always available
             model.AppUserId = appUser.Id;
 
             if ((appUser.Member != null) && (appUser.RefMemberId != null)){
                 // set [MemberId] property
                 model.MemberId = appUser.RefMemberId.Value;
-                model.EncryptedIsTrialMembership = _encryptionsProvider.Encrypt(appUser.Member.IsTrial);
+
+                // encrypt the [IsTrialMembership] property
+                model.EncryptedIsTrialMembership = _encryptionsProvider.Encrypt<bool>(appUser.Member.IsTrial);
                 //model.PaidMembershipExpiresOn = 
             }
 
@@ -67,8 +74,8 @@ namespace WebPortal.WebUI.Services
 
             // encrypt the user role since it's crucial for 
             // allowed commands
-            string roleName = BusinessLogic.Security.Roles.GetRoleName(appUser.Role);
-            model.EncryptedRole = _encryptionsProvider.Encrypt(roleName);
+            string roleName = BusinessLogic.Security.WebPortalUserRoles.GetRoleName(appUser.Role);
+            model.EncryptedRole = _encryptionsProvider.Encrypt<string>(roleName);
              
             return model;
         }

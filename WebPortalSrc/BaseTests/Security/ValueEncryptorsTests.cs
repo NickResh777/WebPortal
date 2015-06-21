@@ -29,9 +29,7 @@ namespace BaseTests.Security
 
         [Test]
         public void test_non_generic_value_encryptor(){
-            _encryptor.Encrypt(12);
-            _encryptor.Encrypt(true);
-            _encryptor.Encrypt("4444");
+           
         }
 
         [Test]

@@ -7,22 +7,27 @@ namespace WebPortal.BusinessLogic.Security
 {
     /// <summary>
     /// Abstract interface to define set of functions 
-    /// to deal with encryption
+    /// to deal with encryption of types
     /// </summary>
-    public interface IEncryptionProvider{
+    public interface IEncryptionProvider{        
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        IValueEncryptor<T> GetEncryptor<T>();
-
+        string Encrypt<T>(T value);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        string Encrypt(object value);
+        T Decrypt<T>(string encryptedText);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        string EncryptText(string plainText);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        string DecryptText(string encryptedText);
     }
 }

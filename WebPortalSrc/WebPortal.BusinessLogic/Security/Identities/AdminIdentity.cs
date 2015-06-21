@@ -17,6 +17,12 @@ namespace WebPortal.BusinessLogic.Security.Identities
             AppUserId = appUser.Id;
         }
 
+        public AdminIdentity(int appUserId){
+            // application user id
+            AppUserId = appUserId;
+        }
+
+
         public string AuthenticationType
         {
             get{

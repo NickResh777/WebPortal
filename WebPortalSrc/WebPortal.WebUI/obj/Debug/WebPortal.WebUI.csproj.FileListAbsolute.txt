@@ -41,7 +41,6 @@ C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.WebUI
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.WebUI\bin\WebPortal.DataAccessLayer.pdb
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.WebUI\bin\WebPortal.Entities.pdb
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.WebUI\bin\Newtonsoft.Json.xml
-C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.WebUI\bin\Ninject.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.WebUI\bin\EntityFramework.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.WebUI\bin\System.Net.Http.xml
 C:\Users\DADDY\Documents\GitHub\WebPortal\WebPortal\WebPortalSrc\WebPortal.WebUI\bin\System.Net.Http.Formatting.xml

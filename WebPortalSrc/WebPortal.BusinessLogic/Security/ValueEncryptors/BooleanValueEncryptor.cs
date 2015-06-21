@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WebPortal.BusinessLogic.Security.ValueEncryptors
 {
-    public class BooleanValueEncryptor : BaseValueEncryptor<bool>{
+    public class BooleanValueEncryptor : BaseCryptoObject<bool>{
        
 
         protected override string ValueToString(bool value){

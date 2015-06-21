@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WebPortal.BusinessLogic.Security.ValueEncryptors
 {
-    public class IntegerValueEncryptor : BaseValueEncryptor<int>{
+    public class IntegerValueEncryptor : BaseCryptoObject<int>{
       
 
         protected override int StringToValue(string encoded){

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WebPortal.BusinessLogic.Security
 {
-    public static class Roles{
+    public static class WebPortalUserRoles{
         public const string RoleGuest = "guest";
         public const string RoleMember = "member";
         public const string RoleAdmin = "admin";
@@ -20,6 +20,14 @@ namespace WebPortal.BusinessLogic.Security
                 return RoleMember;
 
             return null;
+        }
+
+        public static bool IsAdministratorRole(string role){
+            return RoleAdmin.Equals(role);
+        }
+
+        public static bool IsMemberRole(string role){
+            return RoleMember.Equals(role);
         }
     }
 }

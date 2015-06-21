@@ -40,21 +40,21 @@ namespace WebPortal.BusinessLogic.Security {
         public bool IsAdmin{
             get{
                 // Is admin?
-                return IsInRole(Roles.RoleAdmin) && (Identity is AdminIdentity);
+                return IsInRole(WebPortalUserRoles.RoleAdmin) && (Identity is AdminIdentity);
             }
         }
 
         public bool IsMember{
             get{
                 // Is member?
-                return IsInRole(Roles.RoleMember) && (Identity is MemberIdentity);
+                return IsInRole(WebPortalUserRoles.RoleMember) && (Identity is MemberIdentity);
             }
         }
 
         public bool IsGuest{
             get{
                 // check for role "guest" and 
-                return IsInRole(Roles.RoleGuest) && (Identity is GuestIdentity);
+                return IsInRole(WebPortalUserRoles.RoleGuest) && (Identity is GuestIdentity);
             }
         }
 

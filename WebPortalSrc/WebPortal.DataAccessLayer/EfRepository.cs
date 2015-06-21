@@ -53,11 +53,7 @@ namespace WebPortal.DataAccessLayer {
 
         private void LoadEntityRelatedProperties(T foundEntity, List<Expression<Func<T, object>>> entProperties){
             entProperties.ForEach(
-                entPropertySelector => {
-                    // include all needed related properties
-                    _dbContext.ObjectContext.LoadProperty(foundEntity, entPropertySelector);
-                }
-             );
+                entPropertySelector => _dbContext.ObjectContext.LoadProperty(foundEntity, entPropertySelector));
         }
 
     
